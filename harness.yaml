@@ -1,4 +1,4 @@
-version: "0.2.0"
+version: "0.3.0"
 name: portable-agent-harness
 
 application:
@@ -298,10 +298,11 @@ workflow:
       outside_adoption_scope_status: outside_scope
       reason_required: true
       empty_knowledge_updates_proves_assessment: false
-      updated_requires: [completed_writes, passed_applicable_checks]
+      updated_requires: [completed_writes, passed_applicable_checks_after_final_write]
       no_change_requires: assessed_no_eligible_durable_learning
       blocked_requires: [reason, remaining_work]
       write_or_check_failure_status: blocked
+      unavailable_required_check_status: blocked
   finalization:
     knowledge_outcome_and_reason_required: true
     completed_with_blocked_knowledge_outcome: false
@@ -480,19 +481,19 @@ skills:
             mutable_ref: true
             compatibility_note: "Inspect before use; harness scope, role, and artifact contracts take precedence."
       documentation-and-adrs:
-        materialization_default: upstream_direct_if_compatible
+        materialization_default: local_definition
         local_definition: skills/documentation-and-adrs/SKILL.md
-        local_fallback:
-          use_when: "the upstream candidate is unavailable or has a source-specific format/compatibility issue, and the host can load the local definition natively"
-          requires_native_skill_support: true
-          record_fallback: true
-        upstream_candidates:
-          - kind: direct_same_slug_candidate
-            repository: https://github.com/addyosmani/agent-skills
-            ref: main
-            path: skills/documentation-and-adrs/SKILL.md
-            mutable_ref: true
-            compatibility_note: "Use for full-workflow knowledge assessment and partial adoption that includes knowledge management; target knowledge policy takes precedence."
+        source_classification: local_adaptation
+        upstream_candidates: []
+        supporting_assets:
+          required: [knowledge/_template/adr.md, skills/knowledge-base/SKILL.md]
+          required_assets_may_be_translated_to_approved_native_destinations: true
+          conditional_on_reference_checker_selection: [scripts/validate_knowledge.py]
+          illustrative_references: [knowledge/_example/self/adr-0001-knowledge-layout.md, knowledge/log.md, knowledge/validation-layout.yaml]
+          target_specific: [knowledge_validation_layout, knowledge_check_command]
+          inventory_dispositions: [included, translated, referenced, omitted]
+          require_disposition_reasons_and_rewritten_or_removed_projected_links: true
+          maintainer_tests_automatically_materialized_or_run: false
       doubt-driven-development:
         materialization_default: upstream_direct_if_compatible
         local_definition: skills/doubt-driven-development/SKILL.md
@@ -675,6 +676,24 @@ knowledge:
   eligible_learning_requires_retention_in_approved_configured_system: true
   missing_paths_or_write_rules: blocked_never_invent_layout
   startup_navigation_roles: [main_agent, intake, planner]
+  retrieval_order: [configured_startup, matching_index_navigation_hints, relevant_topic, focused_source_refs]
+  broader_scan_requires_recorded_reason: absent_stale_contradictory_or_insufficient_navigation
+  navigation_hints:
+    heading: Navigation Hints
+    table_columns: [Task, Target]
+    target: one_existing_local_page_or_category_link
+    empty_state: "No navigation hints yet."
+  topic_metadata: [type, description, source_refs, updated, status]
+  typed_reference_kinds: [local, url, command, artifact]
+  command_refs_are_inert: true
+  command_alone_establishes_evidence: false
+  preserve_category_protection: true
+  after_curator_final_write_checks_required: true
+  unavailable_required_check_status: blocked
+  integrity_check_implementations: [compatible_existing_target_checker, translated_compatible_checks, optional_reference_checker]
+  reference_checker_runtime: "Python 3.10+ standard library only; no third-party packages or installation step"
+  reference_checker_reader_limits_do_not_narrow_portable_contracts: true
+  python_required_for_all_adoptions: false
   target_path_policy: "Discover and preserve the target's existing knowledge paths and conventions; propose a new location only when needed and approved."
   target_paths:
     root: discovered_or_explicitly_approved
@@ -695,6 +714,8 @@ knowledge:
     templates_folder: _template/
     examples_folder: _example/
     require_lint_after_update: true
+    validation_layout: knowledge/validation-layout.yaml
+    integrity_check: "python3 -B -S scripts/validate_knowledge.py --repo-root . --knowledge-root knowledge --layout knowledge/validation-layout.yaml"
 
 roles:
   intake: prompts/intake.md

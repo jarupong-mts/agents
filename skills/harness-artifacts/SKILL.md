@@ -16,3 +16,11 @@ Use the artifact contract as an interface between roles.
   discovery and native verification.
 - Never turn unknown or blocked evidence into approval or a success claim.
 - Keep user-facing summaries concise, but do not omit unresolved concerns.
+
+[schemas/artifacts.md](../../schemas/artifacts.md#knowledge-outcome) is authoritative
+for Knowledge Outcome as well. Preserve `applicable`, `status`, nonempty `reason`,
+`evidence`, completed `files_changed`, actual `checks`, and `remaining_work`.
+Use `updated`, `no_change`, `blocked`, or `outside_scope` only under their contract
+conditions. Required checks unavailable after final writes mean `blocked`; an
+empty knowledge_updates list never proves assessment. An adapter must translate
+this contract into its approved native mechanism rather than leave dangling links.

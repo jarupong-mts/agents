@@ -101,9 +101,9 @@ native subagents, agent sessions, or equivalent isolated execution contexts.
 
 Before approval, resolve the source for every selected skill using the registry
 and policy in [`../harness.yaml`](../harness.yaml), then review the exact source
-body for compatibility with the harness. For the five direct candidates
+body for compatibility with the harness. For the four direct candidates
 (`context-engineering`, `test-driven-development`, `security-and-hardening`,
-`documentation-and-adrs`, and `doubt-driven-development`), prefer the upstream
+and `doubt-driven-development`), prefer the upstream
 definition when that review passes. Record the repository, path, resolved full
 commit SHA, access date, compatibility decision, and supporting assets in the
 approval packet. The mutable `main` branch is only a lookup ref; resolve its
@@ -114,12 +114,29 @@ the fallback and reason. A host-wide lack of native skill support never permits
 automatic local fallback. Obtain approval for translation into a supported
 native mechanism or explicitly omit the skill with a reason.
 
+`documentation-and-adrs` uses its single local definition as a `local_adaptation`,
+with historical knowledge-base attribution preserved; it is not an upstream
+candidate or fallback. Applications still resolve the chosen source's full commit
+SHA, access date, compatibility, and supporting assets before approval. Materialize
+required ADR templates and knowledge rules into approved native destinations,
+rewriting links. Map applicable final-write integrity checks to a compatible existing
+target checker, translated checks, or the optional reference checker. Selecting the
+reference checker also requires its Python 3.10+ standard-library runtime,
+target-specific classification layout, and check command. Inventory included,
+translated, referenced, and omitted assets with reasons; rewrite or remove projected
+links. Illustrative ADR, log, and layout assets need not be copied. Checker maintainer
+tests are not automatically created, run, or copied by workflow adoption. Required
+failed or unavailable checks remain `blocked`. Do not copy the example knowledge tree.
+Canonical bootstrap and role instructions retain retrieval and final-write check
+rules even when a compatible upstream context-engineering skill is selected.
+
 For all other skills, follow their local defaults and optional method mappings
 in the registry. Slug similarity alone does not establish equivalence. Inspect
 the chosen `SKILL.md` recursively for linked files and references; include
 required skill-local and repository-level assets such as root-level
 `references/` files, which per-skill install commands can omit. Record every
-required, included, or omitted asset. Materialize exactly one definition per
+required asset's included, translated, referenced, or omitted disposition and reason.
+Materialize exactly one definition per
 selected method and only for selected roles/capabilities. Harness lifecycle,
 approval, role, no-commit, concurrency, and artifact contracts take precedence.
 If the source body needs edits to comply, classify it as a local adaptation and

@@ -1,8 +1,12 @@
-# Example Domain Index (Illustrative)
+# Knowledge Examples (Illustrative)
 
-This example is illustrative only. Replace it with project-specific navigation.
+These pages illustrate complete metadata and structure. They are not authoritative
+project findings or evidence of human acceptance; use actual evidence for retention.
 
-- [`self/retry-backoff.md`](self/retry-backoff.md) — an internal operational
-  decision.
-- [`derived/field-reference.md`](derived/field-reference.md) — a derived source
-  summary.
+## Navigation Hints
+
+| Task | Target |
+| --- | --- |
+| Inspect an internal topic example | [Retry backoff](self/retry-backoff.md) |
+| Inspect a derived topic example | [Field reference](derived/field-reference.md) |
+| Inspect a Proposed ADR example | [Knowledge layout proposal](self/adr-0001-knowledge-layout.md) |

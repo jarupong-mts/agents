@@ -1,9 +1,22 @@
-# <Source Topic>
+---
+type: source-companion
+description: "<One-line retained-source description>"
+source_refs:
+  - kind: local
+    target: "<page-relative evidence path>"
+updated: "<YYYY-MM-DD>"
+status: draft
+---
 
-Use this template only when retaining raw external material requires a companion
-navigation page. Do not add internal interpretation to the raw source itself.
+# <Source companion>
 
-- source: <URL or exact source path>
-- retrieved: YYYY-MM-DD
-- checksum or version: <optional>
-- related derived page: `../derived/<topic>.md`
+Use this only for a separately classified companion to retained raw evidence;
+never alter the raw source to add conclusions.
+
+## Provenance
+
+<Original URL/path, actual retrieval date, version or checksum when available.>
+
+## Retention and use
+
+<Exact retained file and relevant derived topic; preserve protection rules.>

@@ -18,3 +18,8 @@ Implement only the approved slice.
 
 When a check fails, use `root-cause` and retry the same slice if its scope and
 assumptions remain valid.
+
+When the approved slice edits knowledge, preserve category protection and complete
+metadata, typed references, and affected navigation. Run applicable integrity
+checks after the final write, including log changes. Record unavailable required
+checks as blocked, never passed; leave the durable-learning assessment to Curator.

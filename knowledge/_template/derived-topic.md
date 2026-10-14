@@ -1,16 +1,25 @@
-# <Derived Topic>
+---
+type: derived
+description: "<One-line external compilation>"
+source_refs:
+  - kind: local
+    target: "<page-relative evidence path>"
+updated: "<YYYY-MM-DD>"
+status: draft
+---
 
-<!-- This page must remain traceable to external sources. -->
+# <Derived topic>
 
 ## Provenance
 
-- source: <URL or exact source path>
-- accessed: YYYY-MM-DD
+<Identify exact source, actual access date, version, and retention location.>
 
 ## Derived knowledge
 
-<!-- Faithfully summarize the source without mixing in internal discoveries. -->
+<Faithfully summarize evidence without mixing internal conclusions.>
 
 ## Limitations and conflicts
 
-<!-- Record uncertainty or contradictions instead of silently resolving them. -->
+<Record applicability, uncertainty, exceptions, and unresolved contradictions.>
+
+<!-- Change a locked external compilation only through explicit source re-sync. -->

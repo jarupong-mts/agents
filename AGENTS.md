@@ -162,6 +162,13 @@ curation decisions, contradictions, and scoped reorganization. Return a Knowledg
 Outcome with a mandatory reason; an empty `knowledge_updates` list alone does not
 prove that assessment occurred.
 
+For knowledge-enabled scope, retrieve before broader searches: configured startup
+entry → matching domain index's `## Navigation Hints` → relevant topic → focused
+`source_refs`. Hints use a `Task | Target` Markdown table with one existing local
+page/category link per target, or `No navigation hints yet.`. If navigation is
+absent, stale, contradictory, or insufficient, record the evidence and reason for
+a narrow expansion. Do not scan the entire tree or invent domain indexes.
+
 Before implementation:
 
 1. Read [`README.md`](README.md), [`SPEC.md`](SPEC.md), and the relevant adapter
@@ -239,9 +246,9 @@ fields live in `schemas/artifacts.md`; adapters may consult the existing
 
 When applying this harness, materialize skills only for selected roles and
 capabilities, using exactly one definition per method. Resolve source selection
-from `harness.yaml` before approval: the five direct candidates
+from `harness.yaml` before approval: the four direct candidates
 (`context-engineering`, `test-driven-development`, `security-and-hardening`,
-`documentation-and-adrs`, `doubt-driven-development`) use upstream definitions
+`doubt-driven-development`) use upstream definitions
 when compatibility review passes, with local definitions only as recorded
 fallbacks. Other skills follow their local defaults and optional-method
 mappings. Record the chosen source, resolved full commit SHA, access date, and
@@ -249,6 +256,22 @@ supporting assets in the approval packet. Harness contracts take precedence; a
 body changed for compatibility is a local adaptation. Unsupported native skill
 loading requires an approved translation or explicit omission, never silent
 substitution. See [`APPLY.md`](APPLY.md) for the application procedure.
+
+`documentation-and-adrs` uses its single local definition as a `local_adaptation`,
+with historical knowledge-base attribution preserved; it is not an upstream
+candidate or fallback. Applications still resolve the chosen source's full commit
+SHA, access date, compatibility, and supporting assets before approval. Materialize
+required ADR templates and knowledge rules into approved native destinations,
+rewriting links. Map applicable final-write integrity checks to a compatible existing
+target checker, translated checks, or the optional reference checker. Selecting the
+reference checker also requires its Python 3.10+ standard-library runtime,
+target-specific classification layout, and check command. Inventory included,
+translated, referenced, and omitted assets with reasons; rewrite or remove projected
+links. Illustrative ADR, log, and layout assets need not be copied. Checker maintainer
+tests are not automatically created, run, or copied by workflow adoption. Required
+failed or unavailable checks remain `blocked`. Do not copy the example knowledge tree.
+Canonical bootstrap and role instructions retain retrieval and final-write check
+rules even when a compatible upstream context-engineering skill is selected.
 
 Roles define **who** owns a stage. Skills define **how** work is performed and may
 be loaded by more than one role. The origin of every listed skill is recorded in

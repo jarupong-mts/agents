@@ -1,28 +1,27 @@
 # Knowledge Navigation Example
 
-This file is the startup entry point for this repository's durable knowledge
-base. It contains navigation rules and stable entry points, not a task transcript.
-When applying the harness to another project, preserve that project's existing
-knowledge entry point and adapt these rules to its structure. Do not assume the
-target has a `knowledge/` root or a `domain/` directory.
+This is the startup entry for the included example, not a target-project default.
+It holds navigation, not task history or domain facts.
 
 ## Entry points
 
-- [`domain/index.md`](domain/index.md) — this repository's example domain index.
-- [`_template/`](_template/) — copyable topic templates.
-- [`_example/`](_example/) — non-authoritative example entries.
-- [`log.md`](log.md) — action history, read only when historical or lint context
-  is needed.
+- [Domain index](domain/index.md) — internal, derived, and raw categories.
+- [Templates](_template/index.md) — field shapes and ADR structure.
+- [Illustrations](_example/index.md) — non-authoritative worked examples.
+- [Action log](log.md) — only for historical, audit, contradiction, or lint needs.
+- [Validation layout](validation-layout.yaml) — explicit example classifications.
 
-## Navigation rule
+## Retrieval rule
 
-For this repository, read the matching domain index first, then only the relevant
-`self/`, `derived/`, or `sources/` entry. In an applied project, follow that
-project's configured categories and index paths instead. Do not scan the entire
-knowledge tree by default.
+Read this startup entry → matching domain index `## Navigation Hints` → relevant
+topic → focused `source_refs` before broader searches. Do not scan the whole tree.
+Record the reason and evidence for a narrow expansion if navigation is absent,
+stale, contradictory, or insufficient. Applied projects keep their discovered
+paths and domain indexes; they do not inherit this directory layout.
 
-## Write rule
+## Retention rule
 
-Durable discoveries go in a topic page. Update an index when navigation changes.
-Record knowledge changes in `log.md`, then run the knowledge linter when one is
-available.
+Read existing knowledge first; update or merge before creating pages. Maintain
+metadata, descriptions, references, affected navigation, and actual action log
+entries. Run applicable checks after the final write, including the log. Required
+failed or unavailable checks block an `updated` Knowledge Outcome.

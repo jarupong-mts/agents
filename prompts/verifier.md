@@ -56,3 +56,10 @@ re-planning requires renewed approval before further edits.
 Return a `Verification Result` using [`schemas/artifacts.md`](../schemas/artifacts.md).
 Include the affected slice, failure classification, evidence, retry/re-entry
 context, and the `recommended_action` in that result.
+
+When approved implementation affects knowledge, run the configured knowledge
+integrity check over affected pages, metadata, references, hints, ADRs, and logs.
+Use explicit target classification, preserving raw/template/example boundaries.
+Record exact command and retained output; required unavailable checks are blocked.
+This earlier verification does not certify later Curator writes: Curator must
+check its final knowledge state after all of its topic/navigation/log edits.

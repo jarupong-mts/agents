@@ -496,7 +496,9 @@ checks:
 remaining_work: []         # required, nonempty when blocked
 ```
 
-`reason` is mandatory and nonempty for every status. `applicable` is true for the
+All seven fields (`applicable`, `status`, `reason`, `evidence`, `files_changed`,
+`checks`, `remaining_work`) are mandatory; lists may be empty only as their
+conditions below allow. `reason` is mandatory and nonempty for every status. `applicable` is true for the
 full workflow and partial scopes including knowledge management; it is false only
 for an adoption scope without knowledge, which must use `outside_scope` and state
 that adoption boundary in `reason`. An applicable assessment uses only `updated`,
@@ -510,10 +512,21 @@ if no checks apply, explain that explicitly. `no_change` requires an actual
 assessment with a reason such as duplicate, temporary, unsupported, code-obvious,
 or otherwise no durable value. Empty writes alone do not establish assessment.
 Missing approved paths, ambiguous write rules, failed writes, failed applicable
-checks, or inability to assess required evidence are `blocked`, with the blocker
+checks, unavailable required checks, or inability to assess required evidence are `blocked`, with the blocker
 in `reason` and concrete `remaining_work`. Never invent destinations or report
 blocked retention as `no_change`. Record completed partial writes separately;
 they do not permit an `updated` outcome while required retention or checks remain.
+
+Knowledge `checks` is a nonempty list of mappings with `status` and nonempty
+`reason`. Allowed statuses are `passed`, `failed`, `blocked`, `not_run`, and
+`not_applicable`. `passed` and `failed` also require the exact `command` and
+supporting `evidence` references to retained output. Do not invent results.
+`not_run` cannot satisfy an applicable required check; report the overall outcome
+as `blocked` until it runs. `not_applicable` needs an explicit scope/configuration
+reason; unavailability is not inapplicability. Check after the final topic,
+metadata, navigation, and log write; an earlier check cannot certify a later write.
+Mechanical success still requires substantive evidence/decision review. Keep
+completed partial writes distinct from remaining work.
 
 ## Run Summary
 

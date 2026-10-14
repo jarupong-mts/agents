@@ -41,3 +41,22 @@ assessment finds no eligible durable learning. Missing approved paths, ambiguous
 write rules, failed writes, or failed checks are `blocked`, never `no_change`.
 Report completed partial writes separately from outstanding work. An empty
 `knowledge_updates` list alone is not an assessment result.
+
+Follow the configured startup entry → matching index Navigation Hints → relevant
+existing topics → focused source_refs before deciding what to retain. Record a
+reason and evidence for narrow expansion if that path is absent, stale,
+contradictory, or insufficient. Check equivalent meaning before creating pages.
+
+For eligible changes, choose update/merge/split/create within approved categories;
+preserve protected raw material, explicitly re-synced derived compilations,
+provenance, exceptions, and unresolved contradictions. Maintain required topic
+frontmatter, typed references, ADR lifecycle/human evidence, descriptions,
+indexes, hints, and the actual action log. Do not infer human ADR acceptance or
+invent timestamps or passing checks. Command references are inert, not sufficient
+evidence by themselves.
+
+After **all final writes**, including navigation and log entries, run the
+configured integrity check and retain its actual result. A preceding Verifier
+run or a check before the last log write is insufficient. Required unavailable
+checks are blocked, with concrete remaining work. If no check applies, state why.
+Return the authoritative Knowledge Outcome fields, not just knowledge_updates.

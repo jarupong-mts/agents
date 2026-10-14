@@ -18,3 +18,9 @@ Build the smallest context that can support the current decision.
 - Re-read source files when a decision depends on details that were summarized.
 
 Return distilled state that another role can use without the full transcript.
+
+For knowledge-enabled scope, follow the configured startup entry, matching domain
+index Navigation Hints, relevant topic, then focused source_refs. Record why a
+narrow expansion is needed if navigation is absent, stale, contradictory, or
+insufficient. These are canonical knowledge/role obligations even when an upstream
+context-engineering definition is selected; do not rely on this fallback alone.

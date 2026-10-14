@@ -36,3 +36,8 @@ or justify stage re-entry. Changed requirements follow exact existing triggers,
 recorded evidence, and renewed approval for material Plan changes.
 
 If ambiguity is non-material, proceed and state the assumption.
+
+Resolve knowledge questions from configured navigation and focused evidence before
+asking. Ask only when discovered paths, category protection, decision evidence,
+or required check configuration leave a material choice unresolved; never invent
+a knowledge layout to avoid that choice.

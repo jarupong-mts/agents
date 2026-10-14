@@ -1,22 +1,46 @@
 # Knowledge Action Log
 
-This file records knowledge-base actions for audit and linting. It is not a
-startup memory file and does not need to be read for every run.
+This log holds concise knowledge actions, not transcripts or routine task progress.
+Read it for historical activity, contradictions, recurring failures, audit, or lint
+context. No actual events are asserted by this example.
 
-## Entry format
-
-Append one concise entry when durable knowledge is created, changed, reconciled,
-or linted:
+## Entries
 
 ```yaml
-- timestamp: YYYY-MM-DDTHH:MM:SSZ
-  run_id: run-identifier
-  action: create | update | reconcile | lint
-  paths:
-    - knowledge/domain/self/topic.md
-  summary: "What durable knowledge action occurred"
-  evidence: "Command, source, or artifact supporting the action"
+[]
 ```
 
-Keep entries factual and concise. Do not copy the conversation or routine task
-progress into this log.
+## Entry format (illustrative only)
+
+The example below is a schema guide outside Entries, not an event to append.
+Replace every placeholder with observed facts before recording an actual action.
+Paths are repository-root-relative existing paths; typed evidence targets are
+page-relative. Actions are `create`, `update`, `merge`, `split`, `reconcile`, or
+`lint`. Timestamps are actual UTC ISO timestamps ending in `Z`. Optional `run_id`
+and `summary` identify the action concisely.
+
+```yaml
+- timestamp: "<actual UTC YYYY-MM-DDTHH:MM:SSZ>"
+  action: update
+  paths:
+    - "<existing repo-root-relative path>"
+  evidence:
+    - kind: artifact
+      target: "<page-relative retained evidence file>"
+  checks:
+    - status: passed
+      reason: "<what the actual check established>"
+      command: "<exact command run>"
+      evidence:
+        - kind: artifact
+          target: "<page-relative retained check output>"
+```
+
+Every check has `status` and a nonempty `reason`. Allowed statuses are `passed`,
+`failed`, `blocked`, `not_run`, and `not_applicable`; passed/failed require exact
+`command` and retained evidence. Required failed or unavailable checks block
+retention. `not_applicable` needs a scope/configuration reason, not unavailability.
+Never invent timestamps or passes. Check after the final write, including an
+appended log entry; earlier checks cannot certify later edits. Keep final output
+as retained evidence and report actual results in Knowledge Outcome without
+appending an endless series of self-certifying log events.

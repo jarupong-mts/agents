@@ -209,7 +209,8 @@ When the user asks to apply this harness:
    actual source body, and inspect its required supporting assets before asking
    for approval. The approval packet must name the exact selected source,
    repository, path, resolved full commit SHA, access date, compatibility
-   decision, and required/included/omitted assets for each skill. A branch such
+   decision, required assets, and included/translated/referenced/omitted dispositions
+   with reasons for each skill. A branch such
    as `main` is a mutable lookup reference, not the revision approval is based
    on. Approval is invalid if the preview is source-shaped, any destination
    lacks verified evidence, or any selected skill source/revision is unresolved.
@@ -227,10 +228,10 @@ When the user asks to apply this harness:
    selected capabilities; a conditional invocation trigger controls when a role
    uses a skill, not whether it is installed. Do not install skills for
    unselected roles or capabilities. For each selected skill, use exactly one
-   definition and follow its `harness.yaml` materialization policy: the five
+   definition and follow its `harness.yaml` materialization policy: the four
    direct candidates
    (`context-engineering`, `test-driven-development`, `security-and-hardening`,
-   `documentation-and-adrs`, and `doubt-driven-development`) default to the
+   and `doubt-driven-development`) default to the
    upstream `SKILL.md` at a resolved full commit SHA when compatibility review
    passes. Use that skill's local definition only as a recorded fallback when
    the upstream candidate is unavailable or has a source-specific format or
@@ -245,7 +246,9 @@ When the user asks to apply this harness:
    references. Include every required skill-local asset and any required
    repository-level asset (including root-level `references/` where the source
    expects it); a per-skill install command may omit repository-level assets.
-   Record required, included, and omitted assets with reasons. Re-check the
+   Record which assets are required and each included, translated, referenced, or
+   omitted disposition with reasons. Rewrite or remove links to assets not retained.
+   Re-check the
    selected source against harness lifecycle, approval, roles, no-commit,
    concurrency, and artifact contracts. These contracts take precedence over
    generic skill methods. If the body itself must be changed to comply, classify
@@ -259,6 +262,21 @@ When the user asks to apply this harness:
    substitute a different source or method silently. Do not leave prompts
    referring to an unavailable or omitted skill. A catalog row without a source
    definition is an adapter error and must be reported, not silently skipped.
+   `documentation-and-adrs` uses its local `local_adaptation`, preserving its
+   knowledge-base influence. Resolve its actual local revision and assets before
+   approval. Include or translate required ADR templates and knowledge rules into
+   approved native destinations and rewrite links. Map applicable final-write
+   integrity checks to a compatible existing target checker, translated checks, or
+   the optional reference checker. Required failed or unavailable checks remain
+   `blocked`. Selecting the reference checker requires Python 3.10+ standard library
+   only, an actual target classification layout, and a mapped check command; Python
+   is not required for other adoptions. Its maintainer tests are not automatically
+   created, run, or copied into the target. Illustrative ADR, log, and layout assets
+   may remain references or be omitted with a reason. Do not leave projected links
+   dangling or copy the example tree.
+   Preserve canonical role retrieval and final-write check obligations even when
+   upstream context-engineering is selected.
+
 8. Connect the target project's knowledge base for every full-workflow adoption
    and for partial adoption that includes knowledge management. Preserve and use
    its discovered existing location, navigation, categories, and protection rules.

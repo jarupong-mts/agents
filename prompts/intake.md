@@ -45,3 +45,10 @@ For bugfixes or failures, load the `root-cause` skill and trace the symptom towa
 its cause using direct evidence. Do not propose a fix from a guess.
 
 Do not modify project files. Return only a Ticket artifact and concise evidence.
+
+For knowledge-enabled scope, retrieve before broader searches: configured startup
+entry → matching domain index's `## Navigation Hints` → relevant topic → focused
+`source_refs`. Hints use a `Task | Target` Markdown table with one existing local
+page/category link per target, or `No navigation hints yet.`. If navigation is
+absent, stale, contradictory, or insufficient, record the evidence and reason for
+a narrow expansion. Do not scan the entire tree or invent domain indexes.

@@ -1,21 +1,30 @@
-# <Internal Topic>
+---
+type: self
+description: "<One-line durable internal finding>"
+source_refs:
+  - kind: local
+    target: "<page-relative evidence path>"
+updated: "<YYYY-MM-DD>"
+status: draft
+---
 
-<!-- Link this page from the relevant domain index. -->
+# <Internal topic>
 
-## Status
+## Finding or procedure
 
-- status: draft | current | superseded
-- last_reviewed: YYYY-MM-DD
-
-## Finding or decision
-
-<!-- State the durable fact, decision, constraint, or procedure. -->
+<State the durable fact, constraint, or procedure and its applicability.>
 
 ## Evidence
 
-- source: <exact file, command, or artifact>
-- observed: YYYY-MM-DD
+<Explain how source_refs support this claim; a command alone is insufficient.>
 
 ## Consequences
 
-<!-- Explain what future work should do differently. -->
+<Describe what future work should do differently.>
+
+## Limits and conflicts
+
+<Preserve versions, exceptions, and unresolved contradictions.>
+
+<!-- If superseded, use status: superseded and a typed local/artifact
+superseded_by mapping naming the existing replacement. -->

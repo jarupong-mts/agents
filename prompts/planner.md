@@ -55,3 +55,10 @@ retry or escalation concern, not a planning trigger.
 
 Do not modify project files. Return both a machine-readable Plan and a short,
 plain-language summary for the user.
+
+For knowledge-enabled scope, retrieve before broader searches: configured startup
+entry → matching domain index's `## Navigation Hints` → relevant topic → focused
+`source_refs`. Hints use a `Task | Target` Markdown table with one existing local
+page/category link per target, or `No navigation hints yet.`. If navigation is
+absent, stale, contradictory, or insufficient, record the evidence and reason for
+a narrow expansion. Do not scan the entire tree or invent domain indexes.

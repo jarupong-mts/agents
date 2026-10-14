@@ -1,17 +1,14 @@
-# Example Domain Index Template
+# Knowledge Templates
 
-This is an optional example for a project that chooses the domain/self/derived
-organization. It is not a required knowledge layout. Adapt paths and categories
-to the target project's existing knowledge system.
+These are optional field shapes, not a mandatory target layout. Adapt source
+paths and categories to approved target configuration. Only explicitly configured
+template files receive `<...>` date/reference placeholder exemptions.
 
-## Internal knowledge
+## Navigation Hints
 
-- `self/<topic>.md` — internal discovery or decision.
-
-## Derived knowledge
-
-- `derived/<topic>.md` — external-source compilation with provenance.
-
-## Sources
-
-- `sources/<file>` — raw external material, if retained.
+| Task | Target |
+| --- | --- |
+| Record a durable internal finding | [Internal topic](self-topic.md) |
+| Compile external evidence faithfully | [Derived topic](derived-topic.md) |
+| Describe retained raw evidence separately | [Source companion](source-topic.md) |
+| Propose or maintain a consequential decision | [ADR](adr.md) |

@@ -85,7 +85,7 @@ reports, see the portable
 [`human-readable-communication` skill](skills/human-readable-communication/SKILL.md).
 
 When applying the harness, materialize only the skills needed by selected roles
-and capabilities, with exactly one definition per method. The five direct
+and capabilities, with exactly one definition per method. The four direct
 upstream candidates use upstream definitions only after compatibility review;
 local definitions are recorded fallbacks. Other skills follow local defaults
 and optional-method mappings. Resolve the selected source, full commit SHA,
@@ -94,6 +94,21 @@ is required to honor harness contracts, record it as a local adaptation.
 Unsupported hosts need an approved translation or explicit omission; silent
 source substitution is not allowed. See [`APPLY.md`](APPLY.md) and
 [`skills/README.md`](skills/README.md) for the complete procedure.
+
+`documentation-and-adrs` uses its single local definition as a `local_adaptation`,
+with historical knowledge-base attribution preserved; it is not an upstream
+candidate or fallback. Applications still resolve the chosen source's full commit
+SHA, access date, compatibility, and supporting assets before approval. Materialize
+required ADR templates and knowledge rules into approved native destinations,
+rewriting links. Map applicable final-write integrity checks to a compatible existing
+target checker, translated checks, or the optional reference checker. Selecting the
+reference checker also requires its Python runtime, target-specific classification
+layout, and check command. Inventory included, translated, referenced, and omitted
+assets with reasons; rewrite or remove projected links. Illustrative ADR, log, and
+layout assets need not be copied. Required failed or unavailable checks remain
+`blocked`. Do not copy the entire example knowledge tree.
+Canonical bootstrap and role instructions retain retrieval and final-write check
+rules even when a compatible upstream context-engineering skill is selected.
 
 The full workflow includes knowledge management automatically. After review,
 the Knowledge Curator assesses every run and retains useful, evidence-backed new
@@ -123,9 +138,19 @@ knowledge curation for each message.
   the included `knowledge/main.md`, `knowledge/log.md`, and domain
   template/example document this repository's own example layout. They are not
   required paths for projects that adopt the harness.
+- [`scripts/validate_knowledge.py`](scripts/validate_knowledge.py) — optional portable
+  reference checker, using Python 3.10+ standard library only. Its bounded YAML
+  reader and limits are documented in [`knowledge/README.md`](knowledge/README.md).
+- [`tests/test_validate_knowledge.py`](tests/test_validate_knowledge.py) — maintainer
+  regression tests for the provided checker. Workflow adoption does not automatically
+  create, run, or copy these tests into a target project.
 
-This repository is a concept/specification. Runtime implementations belong in the
-platform-specific adapter directories.
+This repository supplies reusable workflow, role, skill, and contract sources,
+illustrative knowledge assets, and an optional portable checker with maintainer
+tests. Platform-specific orchestration implementations belong in adapter
+directories; the portable checker is shared reference tooling. Consumers select
+or translate the approved sources into discovered native destinations. Python is
+required only when selecting this checker, not for every harness adoption.
 
 Applying the concept to another repository does not install this tree. The
 applying agent must discover the target platform and project its responsibilities

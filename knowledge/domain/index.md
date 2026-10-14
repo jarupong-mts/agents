@@ -1,21 +1,17 @@
 # Domain Knowledge Index
 
-Use this index to navigate knowledge specific to the project domain. Keep it
-short; topic pages contain the details.
+This is an illustrative category index with no actual project domain topics.
+Keep details in focused topic pages and preserve the target's own categories.
 
-## Internal knowledge
+## Navigation Hints
 
-- [`self/`](self/) — project discoveries, decisions, constraints, and gotchas.
-
-## Derived knowledge
-
-- [`derived/`](derived/) — faithful compilations of approved external sources.
-
-## Raw sources
-
-- [`sources/`](sources/) — raw external material, when the project needs to keep
-  it. Source files are not ordinary topic pages.
+| Task | Target |
+| --- | --- |
+| Find internal discoveries or decisions | [Internal knowledge](self/) |
+| Consult a faithful external compilation | [Derived knowledge](derived/) |
+| Inspect exact retained external evidence | [Raw sources](sources/) |
 
 ## Topics
 
-<!-- Add one link per durable topic, with a one-line navigation hint. -->
+No domain topics yet. Add approved topics with concise descriptions when needed;
+this example is not a default home for run-specific learning.

@@ -27,7 +27,7 @@ it does not establish authorship, origin, equivalence, or compatibility.
   source and record its resolved full commit SHA and access date in the
   application artifact. Do not treat a research-time SHA as an installation lock.
 - Exact same-slug direct candidates are listed for `context-engineering`,
-  `test-driven-development`, `security-and-hardening`, `documentation-and-adrs`,
+  `test-driven-development`, `security-and-hardening`,
   and `doubt-driven-development`. They are candidates, not presumed compatible.
 - `source-driven-development` remains local by default. Its upstream same-slug
   candidate is a narrower optional method for framework-documentation decisions,
@@ -61,7 +61,7 @@ it does not establish authorship, origin, equivalence, or compatibility.
 | `test-driven-development` | Synthesized | [template-harness](https://github.com/jarupongbestt/template-harness); test-design / acceptance-criteria practice | Tests are derived from behavior and are separated from the Implementer's design |
 | `code-review` | Synthesized | [template-harness](https://github.com/jarupongbestt/template-harness); standard code-review practice | Independent review of correctness, scope, regressions, and test quality |
 | `security-and-hardening` | Synthesized | [template-harness](https://github.com/jarupongbestt/template-harness); standard secure-development practice | Risk-based scrutiny of sensitive boundaries and unsafe assumptions |
-| `documentation-and-adrs` | Adapted | [knowledge-base](https://github.com/jarupongbestt/knowledge-base) | Record durable decisions, constraints, procedures, and recurring failures |
+| `documentation-and-adrs` | Local adaptation | [knowledge-base](https://github.com/jarupongbestt/knowledge-base) | Record durable decisions, constraints, procedures, and recurring failures |
 | `harness-artifacts` | Synthesized | [agent-harness](https://github.com/jarupongbestt/agent-harness) | Preserve structured artifact contracts and evidence fields across roles |
 | `knowledge-base` | Adapted | [knowledge-base](https://github.com/jarupongbestt/knowledge-base) | Navigate, update, and lint the durable knowledge tree |
 | `karpathy-guidelines` | Synthesized | [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876); [portable skill reference](https://github.com/multica-ai/andrej-karpathy-skills/tree/main/skills/karpathy-guidelines) | Think before acting, choose the simplest sufficient solution, keep edits surgical, and verify observable outcomes; rewritten as a concise portable skill |
@@ -82,7 +82,7 @@ resolved at commit `7d4a135a199a5d7447c4886bcd7ffe742a627bc9` and accessed
 `references/writing-rules.md`, `examples/before-after.md`, `scripts/ste-lint.py`,
 and `LICENSE`. This is a `local_adaptation`, not a direct upstream copy or an
 ASD-STE100 compliance claim. Its materialization default is the single
-[local definition](human-readable-communication/SKILL.md); the five existing
+[local definition](human-readable-communication/SKILL.md); the four existing
 direct candidates retain their policies. Applications still resolve the chosen
 local source and supporting assets before approval.
 
@@ -118,3 +118,21 @@ Every new skill should add one row here with:
 If a skill is derived from multiple sources, list all of them. If the sources
 conflict, preserve the conflict for review instead of attributing a single source
 to a blended rule.
+
+## Documentation and ADRs local source
+
+`documentation-and-adrs` materializes the single local
+[definition](documentation-and-adrs/SKILL.md). Its historical influence remains
+[knowledge-base](https://github.com/jarupongbestt/knowledge-base); this change does
+not claim an upstream copy, invented pinned SHA, or new authorship. The local
+adaptation supplies the harness's metadata, ADR lifecycle, human decision evidence,
+and final-write integrity rules. The registry has no upstream candidate or local
+fallback for this method. Applications resolve the actual selected local revision
+and assets before approval. Include or translate the required ADR template and
+knowledge contract through the approved native adapter map. Applicable final-write
+checks remain mandatory, using a compatible existing target checker, translated
+checks, or the optional Python 3.10+ standard-library reference checker. Only selection
+of that reference checker requires its runtime and target layout/check command.
+Illustrative ADR, log, and layout assets may remain references or be omitted with
+reasons; inventory all dispositions and rewrite or remove projected links. Checker
+maintainer tests are not automatically created, run, or copied into target projects.

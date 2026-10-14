@@ -26,7 +26,7 @@ copy of the role prompt.
 | test-driven-development | Test Engineer | Required when tests are authored or changed; derive behavior from criteria | Synthesized from template-harness + test-design practice |
 | code-review | Reviewer | Required; inspect correctness, scope, regressions, and maintainability | Synthesized from template-harness + code-review practice |
 | security-and-hardening | Reviewer, Implementer | Conditional when work crosses sensitive boundaries | Synthesized from template-harness + secure-development practice |
-| documentation-and-adrs | Knowledge Curator | Required for every full-workflow knowledge assessment and included partial knowledge scope | Adapted from knowledge-base |
+| documentation-and-adrs | Knowledge Curator | Required for every full-workflow knowledge assessment and included partial knowledge scope | Local adaptation of knowledge-base |
 | knowledge-base | Main Agent, Intake, Planner, Knowledge Curator | Required for full workflow and partial scopes including knowledge; use the configured system | Adapted from knowledge-base |
 | karpathy-guidelines | Implementer, Reviewer | Required; surface assumptions, minimize complexity, keep edits surgical, verify outcomes | Synthesized from Karpathy's published observations and portable skill practice |
 | doubt-driven-development | Main Agent only | Conditional for non-trivial, high-stakes, unfamiliar, or hard-to-verify decisions; fresh-context adversarial challenge | Adapted from addyosmani/agent-skills; orchestration details made portable |
@@ -39,7 +39,7 @@ Main Agent's orchestration and must not be placed in the Reviewer persona.
 
 `human-readable-communication` guides the Main Agent's user-facing presentation.
 Short messages use the bootstrap policy; specialist English artifacts keep their
-contracts. Its local definition is the materialization default, not a sixth
+contracts. Its local definition is the materialization default, not a fifth
 direct upstream candidate. See [`origins.md`](origins.md) for the pinned influence,
 retained license, and intentionally omitted upstream assets.
 
@@ -73,8 +73,8 @@ SHA, access date, compatibility decision, and required/included/omitted
 supporting assets in the approval packet. Mutable refs such as `main` must be
 resolved at application time.
 
-The five direct candidates (`context-engineering`, `test-driven-development`,
-`security-and-hardening`, `documentation-and-adrs`, and
+The four direct candidates (`context-engineering`, `test-driven-development`,
+`security-and-hardening`, and
 `doubt-driven-development`) use their upstream `SKILL.md` definitions when
 compatibility review passes. Their local definitions are recorded fallbacks
 only when the upstream candidate is unavailable or has a source-specific format
@@ -85,10 +85,27 @@ skill as unsupported. Other skills follow the registry's local defaults and
 optional-method mappings; aliases and same-slug candidates are not automatic
 equivalents.
 
+`documentation-and-adrs` uses its single local definition as a `local_adaptation`,
+with historical knowledge-base attribution preserved; it is not an upstream
+candidate or fallback. Applications still resolve the chosen source's full commit
+SHA, access date, compatibility, and supporting assets before approval. Materialize
+required ADR templates and knowledge rules into approved native destinations,
+rewriting links. Map applicable final-write integrity checks to a compatible existing
+target checker, translated checks, or the optional reference checker. Selecting the
+reference checker also requires its Python 3.10+ standard-library runtime,
+target-specific classification layout, and check command. Inventory included,
+translated, referenced, and omitted assets with reasons; rewrite or remove projected
+links. Illustrative ADR, log, and layout assets need not be copied. Checker maintainer
+tests are not automatically created, run, or copied by workflow adoption. Required
+failed or unavailable checks remain `blocked`. Do not copy the example knowledge tree.
+Canonical bootstrap and role instructions retain retrieval and final-write check
+rules even when a compatible upstream context-engineering skill is selected.
+
 For the chosen `SKILL.md`, recursively inspect linked files and references.
 Include required skill-local and repository-level files, including root-level
 `references/` assets when referenced; per-skill install commands may omit these.
-Record every asset as required, included, or omitted with an omission reason.
+Record whether every asset is required, then its included, translated, referenced,
+or omitted disposition and reason. Rewrite or remove links to assets not retained.
 Harness lifecycle, approval, role, no-commit, concurrency, and artifact
 contracts take precedence over generic skill methods. If the source body itself
 must be changed to comply, record a `local_adaptation` and its upstream

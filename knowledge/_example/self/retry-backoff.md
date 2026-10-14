@@ -1,12 +1,28 @@
+---
+type: self
+description: "Illustrative summary of bounded recovery in the harness specification"
+source_refs:
+  - kind: local
+    target: "../../../harness.yaml"
+  - kind: local
+    target: "../../../prompts/implementer.md"
+updated: "2026-10-14"
+status: draft
+example: true
+---
+
 # Retry Backoff Example
 
-This is a non-authoritative example of an internal knowledge page.
+This is illustrative only. It summarizes the cited harness policy, not a measured
+project failure or a new operational decision.
 
-## Decision
+## Finding
 
-Retries should be bounded and preserve the original failure evidence.
+An ordinary implementation or verification failure retries the affected Builder
+slice within the configured budget. Preserve the failure evidence and use
+root-cause before retrying; an ordinary failed check does not restart Intake.
 
-## Evidence
+## Consequences and limits
 
-See the approved workflow and the relevant verification artifact for the actual
-project. Replace this example before treating it as project knowledge.
+Consult the actual configured budget and failure artifact before recovery. This
+example does not prescribe a retry delay or assert that any retry succeeded.

@@ -1,7 +1,7 @@
 # Portable Agent Harness Specification
 
 Status: concept
-Version: 0.2.0
+Version: 0.3.0
 
 ## 1. Purpose
 
@@ -427,3 +427,24 @@ A run is complete when:
 If required knowledge assessment or retention is blocked, finalize with
 `status: blocked`, a reason, and the remaining work. This is a blocked result,
 not a completed run.
+
+## Knowledge retrieval and integrity
+
+In knowledge-enabled scope, Main Agent, Intake, and Planner retrieve from the
+configured startup entry, matching index Navigation Hints, relevant topic, and
+focused source_refs before broader searches. Missing, stale, contradictory, or
+insufficient navigation permits only a reasoned, recorded narrow expansion.
+Hints are a `Task | Target` table with existing local page/category links, or the
+explicit empty state `No navigation hints yet.`; do not invent domain indexes.
+
+The knowledge-base method defines typed YAML topic metadata, reference handling,
+category protection, and explicit classification. Documentation and ADRs is the
+local source default and defines decision status and retained human evidence.
+Examples and templates never establish an actual project decision. Read evidence
+and reconcile meaning; mechanical validation cannot establish content truth.
+
+Verifier checks knowledge changed by implementation. Curator checks its own
+final state after all topic, metadata, index, hint, and log writes, returning
+Knowledge Outcome actual results. A required check that fails or cannot run is
+`blocked`; earlier passing checks do not certify later writes. Integrity checks
+are read-only and never execute reference commands or verify remote URLs.

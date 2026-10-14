@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-10-15
+
 - Route messages by intent before Intake: answer ordinary conversation directly,
   preserve active execution during follow-up questions, and interpret affirmatives
   in context while retaining complete Plan approval before project edits.
@@ -18,6 +20,26 @@
   assessed no-change, blocked retention with remaining work, or an explicit
   outside-scope result for partial adoption without knowledge. Preserve independent
   knowledge-only adoption and approved target-native paths and protection rules.
+- Define ordered knowledge retrieval through startup navigation, domain Navigation
+  Hints, relevant topics, and focused `source_refs`; require recorded reasons for
+  bounded expansion when navigation is absent, stale, contradictory, or insufficient.
+- Strengthen topic metadata, typed references, dates, status transitions, category
+  protection, action logs, and checks after the final knowledge write. Add an ADR
+  template with preserved history and `Proposed`, `Accepted`, `Superseded`, and
+  `Deprecated` states; acceptance requires retained human decision evidence.
+- Provide an optional read-only knowledge validator with explicit classification
+  layout and maintainer regression tests. It uses Python 3.10+ standard library
+  only and a documented bounded YAML subset, with no third-party packages or
+  installation step. Its mechanical checks do not prove claims or authenticate
+  human decisions.
+- Use the single local `documentation-and-adrs` definition as a `local_adaptation`
+  with historical knowledge-base attribution; retain the four direct upstream
+  candidates and their compatibility-based source selection.
+- Clarify downstream materialization of required ADR and knowledge assets, native
+  destinations, rewritten links, and compatible final-write checks. Only selecting
+  the optional checker requires its runtime and target-specific layout; adoption
+  does not copy the whole example tree or automatically create, run, or copy the
+  checker's maintainer tests.
 
 ## [0.2.0] - 2026-09-27
 
