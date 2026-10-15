@@ -11,6 +11,26 @@ Never infer paths from this repository's example tree. Full workflow includes
 knowledge management; a partial adoption without it may omit this method with an
 explicit `outside_scope` reason.
 
+## Classify before retaining
+
+Follow the [record-boundary policy](../../SPEC.md#documentation-knowledge-and-run-artifacts).
+Project documentation holds authoritative concepts, PRDs, requirements,
+specifications, design, architecture, and guides. Execution-specific Tickets,
+Plans, results, checks, and progress remain run artifacts. Knowledge retains
+distinct, evidence-backed reusable learning rather than copies of either class.
+Keep one authoritative home per substantive record and cite relevant canonical
+documents and decisions through `source_refs` for distinct supported learning.
+Related topics may overlap without duplicating their authority.
+
+Preserve suitable approved existing homes and ownership. Classify by purpose and
+approved configuration, never folder name alone; reuse requires compatible
+discovered or approved purpose and ownership. A general project-documentation area
+is not an implicit learning or run-artifact home. Curation grants no general
+project-documentation write permission: establishing or revising requirements needs
+the applicable approved scope and owner. Preserve unresolved contradictions.
+Ordinary project documents do not inherit knowledge frontmatter from their topic
+or location; configured knowledge records retain the contract below.
+
 ## Retrieve before scanning
 
 Main Agent, Intake, and Planner read the configured startup entry, then the
@@ -37,10 +57,12 @@ Read existing relevant pages and check equivalent meaning before choosing:
 - Split mixed topics only when focused retrieval improves and links survive.
 - Create a page when eligible information has no suitable existing home.
 
-Keep decisions, constraints, procedures, and recurring failure patterns that
-will help future work. Exclude task diaries, transcripts, copied code, and
-unsupported claims. Preserve the target's category rules: internal discoveries
-and ADRs, faithful external compilations, and protected raw inputs are distinct.
+Keep distinct discoveries, constraints, qualifications, procedures, and recurring
+failure patterns that will help future work, including supported learning about
+architecture, conventions, integration, security, and testing. Reference existing
+decisions rather than duplicating them. Exclude task diaries, transcripts, copied
+code, and unsupported claims. Preserve the target's category rules: internal
+discoveries and ADRs, faithful external compilations, and protected raw inputs are distinct.
 Locked derived content changes only through an explicitly approved source re-sync;
 normal curation must not rewrite raw material. Reorganization stays within scope,
 maintains navigation and references, and preserves provenance and exceptions.

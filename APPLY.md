@@ -67,8 +67,9 @@ Before creating a concept map, the applying agent must identify and record:
   example local, hosted, cloud, plugin, or integration mode), and host runtime
   and version;
 - the target repository, its current instruction/configuration files, existing
-  agent and subagent mechanisms, skills, test/check commands, knowledge paths,
-  and relevant working-tree or project constraints; and
+  agent and subagent mechanisms, skills, test/check commands, relevant existing
+  project-documentation, knowledge, and run-artifact homes for the requested
+  adoption scope, and working-tree or project constraints; and
 - the host's actual capabilities and conventions by inspecting the host and
   researching current first-party documentation and, where relevant,
   first-party source or released implementation details.
@@ -174,6 +175,16 @@ model, knowledge, or run-state questions for capabilities the user did not selec
 If a required decision is already evident from the target's existing setup,
 preserve it and record the evidence rather than asking again.
 
+For the selected scope, apply the
+[record-boundary policy](SPEC.md#documentation-knowledge-and-run-artifacts) to
+relevant project-documentation, knowledge, and run-artifact homes. Record their
+purpose, authority, ownership, and approved write scope in existing inventory,
+mapping, and scope descriptions; no new artifact field is required. Preserve
+suitable discovered/approved homes and owners. A general documentation area is
+not an implicit learning or run home. Never guess an unresolved destination or
+create a missing one without applicable approval; do not expand discovery or
+mapping to record classes the selected scope does not need.
+
 When the user asks to apply this harness:
 
 1. Complete the read-only Native Convention Discovery gate above. Inspect both
@@ -186,17 +197,18 @@ When the user asks to apply this harness:
    requirements, role prompts, artifact contracts, and skill provenance registry
    as source material for translation. Do not treat any source path as a path to
    copy into the target.
-3. Inventory relevant concepts and existing equivalents after discovery, without
-   yet proposing target writes. Identify capability and role dependencies that
-   affect the user's requested scope.
+3. Inventory relevant concepts, existing equivalents, and record homes after
+   discovery, without yet proposing target writes. Identify capability and role
+   dependencies that affect the user's requested scope.
 4. Confirm the adoption scope (full workflow, selected capabilities, and/or
    selected roles) only if the request and inspection do not establish it. Ask
    only for unresolved choices required by that scope, such as how to handle a
    conflicting instruction file, a needed coordinator/model policy, or a new
    knowledge location when no usable knowledge system exists. Preserve existing
-   model, knowledge, and run-state policies when they already fit. Knowledge
-   location changes require explicit user approval; an existing compatible
-   knowledge system can be reused without creating a new layout.
+   model policies and suitable project-documentation, knowledge, and run homes
+   with their ownership and write rules. Knowledge location changes require
+   explicit user approval; an existing compatible knowledge system can be reused
+   without creating a new layout.
 5. Create the target-specific concept map and propose a small platform-specific
    file map derived only from the target inventory, selected scope, and verified
    discovery evidence. Get explicit user approval for the map, selected scope,

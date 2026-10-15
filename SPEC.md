@@ -1,7 +1,7 @@
 # Portable Agent Harness Specification
 
 Status: concept
-Version: 0.3.0
+Version: 0.3.1
 
 ## 1. Purpose
 
@@ -339,15 +339,12 @@ material. Partial adoption may select knowledge management independently without
 agents, model assignments, or persisted run state. A partial adoption without
 knowledge management reports `outside_scope` with a reason. Never write
 run-specific learning to this repository's example knowledge tree by default.
-Eligible durable information includes:
-
-- architectural decisions
-- project conventions
-- integration constraints
-- recurring failure causes
-- security requirements
-- testing relationships
-- operational procedures
+Eligible learning may concern architecture, conventions, integration, security,
+testing, or operations when it records distinct, supported discoveries,
+constraints, qualifications, procedures, or recurring failure causes. Apply the
+[record-boundary policy](#documentation-knowledge-and-run-artifacts): cite
+canonical documentation and decisions instead of duplicating them or silently
+changing requirements through curation.
 
 Do not copy conversation transcripts or routine diaries into the knowledge base.
 The Curator returns a Knowledge Outcome with a mandatory reason and evidence:
@@ -427,6 +424,41 @@ A run is complete when:
 If required knowledge assessment or retention is blocked, finalize with
 `status: blocked`, a reason, and the remaining work. This is a blocked result,
 not a completed run.
+
+## Documentation, knowledge, and run artifacts
+
+Classify each substantive record by its purpose and authority:
+
+| Record | Purpose | Authority |
+|---|---|---|
+| Project documentation | Concepts, PRDs, requirements, specifications, design, architecture, and guides describing the intended or current product/project | Canonical product and project documentation, maintained under its owner's approved scope |
+| Durable knowledge | Evidence-backed reusable discoveries, constraints, qualifications, procedures, and recurring failures | Learned evidence and its limits, supporting future work |
+| Run artifacts | Execution-specific Tickets, Plans, results, checks, and progress | Record of that execution |
+
+Placement follows this meaning and the approved existing configuration, never a
+folder name alone. Reuse a home only when its discovered or approved purpose and
+ownership fit the record. A general project-documentation area is not an implicit
+destination for accumulated learning or run artifacts. Preserve suitable approved
+homes and their ownership; no universal layout is required, and unresolved
+destinations must not be guessed.
+Keep one authoritative home per substantive record. Cite canonical project
+documents and existing decisions instead of copying their substantive contents
+into knowledge; run artifacts do not become durable knowledge merely by retention.
+
+Related topics may span these classes. For example, an architecture specification
+can remain canonical while a knowledge record explains a distinct, evidence-backed
+integration limitation and cites relevant canonical documents through `source_refs`.
+Keep normative requirements separate from learned evidence. Knowledge curation
+grants no general project-documentation write permission and cannot silently
+establish or revise requirements. Such changes require the applicable approved
+scope and owner. Compare evidence, versions, and conditions; preserve unresolved
+contradictions explicitly rather than silently replacing either authority.
+
+Apply configured knowledge metadata, typed references, category protection,
+navigation, and final-write checks to knowledge records. Ordinary project documents
+do not inherit knowledge frontmatter from their topic or location. Preserve
+existing configured ADR ownership, metadata, lifecycle, human-decision evidence,
+and history requirements.
 
 ## Knowledge retrieval and integrity
 

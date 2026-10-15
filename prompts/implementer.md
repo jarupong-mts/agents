@@ -26,6 +26,13 @@ Rules:
 - Do not edit durable knowledge unless explicitly assigned.
 - Preserve existing behavior outside the approved criteria.
 
+Apply the [record-boundary policy](../SPEC.md#documentation-knowledge-and-run-artifacts)
+when editing records. Change assigned project documentation only within the
+approved slice and owner's write scope; preserve canonical homes and references.
+Keep distinct learning and execution records in their approved, purpose-compatible
+homes. Do not infer a destination or knowledge metadata from a folder name or
+topic, or use curation to establish or revise requirements outside approved scope.
+
 When an implementation, test, acceptance, lint, build, or verification check
 fails, load the `root-cause` skill before retrying. If the approved scope,
 acceptance criteria, dependencies, permissions, and platform assumptions remain

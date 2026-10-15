@@ -3,6 +3,14 @@
 These are logical contracts. Adapters may represent them as JSON, YAML, Markdown,
 or native tool results, but the fields and meaning should remain compatible.
 
+Apply the [record-boundary policy](../SPEC.md#documentation-knowledge-and-run-artifacts)
+when describing project documentation, durable knowledge, and run artifacts.
+Record scope-relevant purpose, canonical home, owner, approved destination and
+write limits in existing inventory, mapping, scope, evidence, and result/outcome
+records or adapter-native equivalents. This adds no mandatory artifact fields or
+ADR inventory. Classification follows purpose and authority, not folder names;
+ordinary project documents do not inherit knowledge metadata from topic or location.
+
 ## Evidence Record
 
 Evidence records use the same fields in discovery, concept/file mapping, and
@@ -60,9 +68,9 @@ target_inventory:
   agent_subagent_mechanisms: []
   skills: []
   checks: []
-  knowledge_paths: []
-  run_state_paths: []
-  constraints: []
+  knowledge_paths: []       # relevant configured/approved knowledge homes
+  run_state_paths: []       # relevant configured/approved execution-record homes
+  constraints: []           # include scope-relevant project-document homes, owners, and write limits
 target_layout:
   status: unknown              # verified | unknown | blocked
   native_projection_preview: []
@@ -130,6 +138,14 @@ must be `false`, and `unapproved_source_tree_paths` must be empty, before the
 application may proceed. A value of `true` or `unknown` blocks approval and target
 writes; an existing target path may be retained only when the inventory and map
 give it an independent reason.
+
+Use the existing inventory fields and evidence findings to record the selected
+scope's relevant project-documentation, knowledge, and run homes and ownership.
+Reuse a home only when its discovered or approved purpose and ownership fit the
+record; a general documentation area is not an implicit learning or run home.
+Carry the supported placement and permission decisions into the applicable
+Concept Map and Target File Map entries. Unresolved destinations remain explicit
+gaps, never invented paths.
 
 ## Concept Map
 
@@ -413,6 +429,14 @@ equivalent conflict analysis. Verifier, Reviewer, Knowledge Curator, and other
 specialists never overlap active specialist work; verification follows all
 test/build work, and review follows verification. These fields describe the
 contract and do not implement a scheduler.
+
+For record changes, use existing task files, acceptance criteria, assumptions, and
+scope prose to state purpose, canonical home, owner, and approved writes. Link
+relevant canonical documents and evidence for duplicate/contradiction checks;
+keep normative requirements distinct from learned evidence. Task Results and
+Knowledge Outcomes report actual scoped changes and unresolved issues through
+their existing summary, evidence, concerns, reason, and remaining-work records as
+applicable. Curation does not grant general project-documentation write permission.
 
 ## Task Result
 

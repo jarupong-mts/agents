@@ -2,6 +2,22 @@
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-10-15
+
+- Distinguish authoritative project documentation, evidence-backed reusable
+  knowledge, and execution-specific run artifacts by purpose and authority.
+- Keep one authoritative home per substantive record; cite canonical documents
+  and decisions instead of copying them into knowledge. Preserve distinct supported
+  learning, related topic overlap, and unresolved contradictions.
+- Bound Curator permissions: curation cannot silently establish or revise
+  requirements or grant general project-documentation write access. Ordinary
+  project documents do not inherit knowledge metadata from their topic or location.
+- Limit application mapping to the selected scope and reuse approved existing
+  homes only when purpose and ownership fit, without guessed destinations or
+  mandatory layouts.
+- Align bootstrap, role instructions, artifact guidance, and documentation methods
+  while preserving lifecycle, knowledge integrity, and ADR safeguards.
+
 ## [0.3.0] - 2026-10-15
 
 - Route messages by intent before Intake: answer ordinary conversation directly,

@@ -1,6 +1,6 @@
 ---
 name: documentation-and-adrs
-description: Maintain focused durable documentation and ADRs with evidence, lifecycle history, and explicit human decision records.
+description: Maintain project documentation and distinct durable knowledge with clear authority, evidence, and ADR history.
 ---
 
 # Documentation and ADRs
@@ -8,23 +8,39 @@ description: Maintain focused durable documentation and ADRs with evidence, life
 This is the local materialization default. Preserve its historical influence from
 knowledge-base; source selection and provenance remain separate.
 
-Use the target's discovered/approved knowledge categories and protection policy,
-following [knowledge-base](../knowledge-base/SKILL.md). Read relevant existing
-knowledge first; update or merge before creating another page. Retain durable,
-evidence-backed constraints, procedures, decisions, and recurring failure causes.
-Do not retain transcripts, routine diaries, copied code, or unsupported claims.
+Follow the [record-boundary policy](../../SPEC.md#documentation-knowledge-and-run-artifacts).
+Project documentation is the authoritative home for concepts, PRDs, requirements,
+specifications, design, architecture, and guides. Edit it only within the applicable
+approved scope and ownership; knowledge curation grants no general permission to
+write it or silently establish or revise requirements. Keep execution-specific
+Tickets, Plans, results, checks, and progress in their approved run-artifact home.
 
-Write focused pages with complete YAML metadata and typed `source_refs`. Keep
-indexes navigational, preserve raw sources, and change locked external compilations
-only during an explicit source re-sync. Record versions, limitations, and unresolved
-contradictions rather than overwriting the conflicting evidence.
+For knowledge work, follow [knowledge-base](../knowledge-base/SKILL.md) and the
+target's approved categories and protection policy. Read relevant existing records
+first; update or merge before creating another page. Retain distinct, reusable,
+evidence-backed discoveries, constraints, qualifications, procedures, and recurring
+failure causes. Keep one authoritative home per substantive record: cite canonical
+documents and decisions through `source_refs` instead of copying their contents.
+Related topics may overlap when the learning and its evidence are distinct.
+Preserve suitable approved homes and ownership; classify by purpose and approved
+configuration, not folder name. Reuse requires compatible discovered or approved
+purpose and ownership; a general project-documentation area is not an implicit
+learning or run-artifact home. Never invent unresolved destinations. Exclude
+transcripts, routine diaries, copied code, and unsupported claims.
+
+Write configured knowledge pages with complete YAML metadata and typed
+`source_refs`; ordinary project documents do not inherit this frontmatter from
+their topic or location. Keep indexes navigational, preserve raw sources, and
+change locked external compilations only during an explicit source re-sync.
+Record versions, limitations, and unresolved contradictions rather than
+overwriting the conflicting evidence.
 
 ## Architecture decision records
 
 Use an ADR for a consequential decision whose alternatives, rationale, or history
-will matter later. Place it in the target's approved internal decision category;
-`self/` is only this repository's example. The reusable
-[ADR template](../../knowledge/_template/adr.md) provides `Context`, `Decision`,
+will matter later. Preserve the target's approved decision-record home and
+ownership. The reusable [ADR template](../../knowledge/_template/adr.md) provides
+`Context`, `Decision`,
 `Reasons`, `Rejected alternatives`, `Consequences`, `Open questions`, `History`,
 and `Supersession`. Keep those sections and earlier history when changing status.
 

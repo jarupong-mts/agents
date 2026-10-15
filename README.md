@@ -123,6 +123,20 @@ reports `outside_scope`. No separate per-run opt-in applies to the full workflow
 Ordinary conversation is not a full-workflow execution run and does not invoke
 knowledge curation for each message.
 
+The [record-boundary policy](SPEC.md#documentation-knowledge-and-run-artifacts)
+keeps three responsibilities distinct:
+
+| Record | Conceptual example |
+|---|---|
+| Project documentation | Concepts, PRDs, specifications, architecture, and guides remain in their canonical homes under their owners' approved scope. |
+| Durable knowledge | A distinct, reusable integration constraint or procedure cites supporting evidence and relevant canonical documents through `source_refs`. |
+| Run artifacts | Tickets, Plans, task results, checks, and progress record one execution in its approved run home. |
+
+Placement follows purpose and suitable approved existing configuration, not a
+folder name. Curation cannot silently revise requirements or grant general
+project-documentation write permission. Ordinary documents do not inherit
+knowledge metadata from their topic or location.
+
 ## Files
 
 - [`SPEC.md`](SPEC.md) — architecture and workflow contract.

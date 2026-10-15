@@ -38,6 +38,17 @@ Break the work into small, ordered, self-contained slices. For each slice define
 - test action: create, extend, or none
 - direct and regression tests
 
+For scope involving project documentation, knowledge, or run artifacts, apply the
+[record-boundary policy](../SPEC.md#documentation-knowledge-and-run-artifacts).
+Use existing scope, acceptance, assumptions, and mapping prose to identify each
+record's purpose, canonical home, owner, approved destination, and write scope.
+Check relevant canonical documents and existing knowledge for equivalent meaning,
+duplicate authority, and contradictions before proposing writes. Preserve suitable
+approved homes; reuse requires compatible discovered or approved purpose and
+ownership, not a folder name. A general documentation area is not an implicit
+learning or run-artifact destination. Keep unresolved destinations and conflicting
+evidence explicit; requirement changes need the applicable approved scope and owner.
+
 Build a dependency-aware execution graph. Mark a slice ready only when its
 dependencies are complete. Only Test Engineer and Builder invocations may run
 concurrently after approval, and only when their approved files, resources,

@@ -5,6 +5,15 @@ default target layout or a destination for this repository's run-specific learni
 Discover and preserve a target's existing startup path, categories, protections,
 log, and checks; propose missing configuration before writing.
 
+Follow the [record-boundary policy](../SPEC.md#documentation-knowledge-and-run-artifacts):
+this example illustrates curated learning, not a second authoritative home for
+concepts, PRDs, specifications, architecture, or guides. Knowledge cites canonical
+documents and supporting evidence; execution-specific Tickets, Plans, results,
+checks, and progress stay in their approved run home. Placement follows purpose
+and compatible approved ownership, not a folder name. Ordinary project documents
+do not inherit knowledge metadata from their topic or location, and curation does
+not authorize requirement changes or general project-documentation writes.
+
 ## Included layout
 
 ```text
@@ -41,9 +50,11 @@ searches. If navigation is absent, stale, contradictory, or insufficient, record
 why a narrow expansion is needed. Read [log.md](log.md) only for history,
 contradictions, recurring failures, audit, or lint context.
 
-Retain evidence-backed durable decisions, constraints, procedures, and recurring
-failure patterns. Read existing topics first and prefer update/merge over duplicate
-pages. Exclude transcripts, task diaries, copied code, and unsupported claims.
+Retain distinct, evidence-backed reusable discoveries, constraints, qualifications,
+procedures, and recurring failure patterns. Cite canonical documentation and
+decisions instead of copying their substance. Read existing topics first and
+prefer update/merge over duplicate pages. Exclude transcripts, task diaries,
+copied code, and unsupported claims.
 Protect raw inputs from normal editing; faithful external compilations are locked
 until an explicit re-sync; internal findings and ADRs remain separate. Preserve
 unresolved contradictions, provenance, versions, conditions, and exceptions.

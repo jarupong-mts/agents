@@ -1,4 +1,4 @@
-version: "0.3.0"
+version: "0.3.1"
 name: portable-agent-harness
 
 application:
@@ -675,6 +675,25 @@ knowledge:
   management_is_independently_selectable: true
   eligible_learning_requires_retention_in_approved_configured_system: true
   missing_paths_or_write_rules: blocked_never_invent_layout
+  record_boundaries:
+    policy: SPEC.md#documentation-knowledge-and-run-artifacts
+    declarative_policy_only: true
+    classification_basis: purpose_and_authority_not_folder_name
+    project_documentation: intended_or_current_product_concepts_prds_requirements_specs_design_architecture_and_guides
+    durable_knowledge: evidence_backed_reusable_discoveries_constraints_qualifications_procedures_and_recurring_failures
+    run_artifacts: execution_specific_tickets_plans_results_checks_and_progress
+    placement: preserve_suitable_approved_existing_homes_and_ownership
+    home_reuse_requires: compatible_discovered_or_approved_purpose_and_ownership
+    general_project_documentation_area_is_implicit_learning_or_run_home: false
+    unresolved_destinations: never_guess
+    authoritative_homes_per_substantive_record: 1
+    canonical_documents_and_decisions: cite_instead_of_copy_into_knowledge
+    distinct_supported_topic_overlap: allowed_with_relevant_canonical_source_refs
+    normative_requirements_and_learned_evidence: separate
+    curator_general_project_documentation_write_permission: false
+    requirement_changes: applicable_approved_scope_and_owner_required
+    unresolved_contradictions: preserve_explicitly
+    ordinary_project_docs_inherit_knowledge_metadata_by_topic_or_location: false
   startup_navigation_roles: [main_agent, intake, planner]
   retrieval_order: [configured_startup, matching_index_navigation_hints, relevant_topic, focused_source_refs]
   broader_scan_requires_recorded_reason: absent_stale_contradictory_or_insufficient_navigation

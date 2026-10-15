@@ -20,9 +20,19 @@ knowledge tree by default.
 Review the completed run and assess whether it produced durable information
 useful to future work. Read relevant existing knowledge, check for equivalent
 meaning, and update or merge before creating new material. Retain eligible,
-evidence-backed facts, decisions, constraints, procedures, and recurring failure
-patterns in the approved configured system. Skip duplicate, temporary,
+evidence-backed discoveries, constraints, qualifications, procedures, and recurring
+failure patterns in the approved configured system. Skip duplicate, temporary,
 unsupported, code-obvious, or otherwise non-durable information with a reason.
+
+Apply the [record-boundary policy](../SPEC.md#documentation-knowledge-and-run-artifacts).
+Keep one authoritative home per substantive record: cite canonical project
+documents and existing decisions through `source_refs` instead of copying them.
+Related topics may overlap when the learning and its evidence are distinct.
+Preserve suitable approved homes and owners; a general documentation area is not
+an implicit knowledge or run-artifact destination. Curation grants no general
+project-documentation write permission and cannot silently establish or revise
+requirements; those changes need the applicable approved scope and owner. Compare
+evidence, versions, and conditions, and report unresolved contradictions explicitly.
 
 Apply the target's own separation rules for internal findings, external-source
 compilations, and raw sources. Keep raw external material protected when the
@@ -49,11 +59,12 @@ contradictory, or insufficient. Check equivalent meaning before creating pages.
 
 For eligible changes, choose update/merge/split/create within approved categories;
 preserve protected raw material, explicitly re-synced derived compilations,
-provenance, exceptions, and unresolved contradictions. Maintain required topic
-frontmatter, typed references, ADR lifecycle/human evidence, descriptions,
+provenance, exceptions, and unresolved contradictions. Maintain required knowledge
+topic frontmatter, typed references, ADR lifecycle/human evidence, descriptions,
 indexes, hints, and the actual action log. Do not infer human ADR acceptance or
 invent timestamps or passing checks. Command references are inert, not sufficient
-evidence by themselves.
+evidence by themselves. Ordinary project documents do not acquire knowledge
+frontmatter because of their topic or location.
 
 After **all final writes**, including navigation and log entries, run the
 configured integrity check and retain its actual result. A preceding Verifier

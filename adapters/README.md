@@ -24,7 +24,9 @@ must inspect the actual host and target repository and report the detected
 platform, platform version or release/channel, operating mode, host runtime and
 version, and host capabilities relevant to the mapping. It must also inspect
 the target's existing instructions, configuration, agent/session mechanisms,
-skills, checks, knowledge paths, and applicable project constraints.
+skills, checks, and applicable project constraints. Discover existing
+project-documentation, knowledge, and run-artifact homes only when relevant to
+the requested adoption scope.
 
 The discovery report must use current, mutually consistent first-party
 evidence. For each material finding, record a first-party source URL (or exact
@@ -96,6 +98,15 @@ native subagents, agent sessions, or equivalent isolated execution contexts.
 | Permissions | Restrict tools and write paths by role |
 | Structured output | Preserve the artifact contracts |
 | Knowledge update | Allow only the Knowledge Curator write path |
+
+For the selected scope, map relevant record homes according to the
+[record-boundary policy](../SPEC.md#documentation-knowledge-and-run-artifacts).
+Use existing inventory, mapping, and scope descriptions to record their purpose,
+authority, owner, and approved write rules. Preserve suitable discovered/approved
+homes and ownership; a general documentation area is not an implicit learning or
+run home. Never guess unresolved destinations or create missing ones without
+applicable approval. Curation grants no general project-documentation write
+permission or authority to silently revise requirements.
 
 ## Skill source resolution
 

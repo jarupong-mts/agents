@@ -152,6 +152,14 @@ management can be adopted independently, and a partial scope without it reports
 the knowledge outcome as `outside_scope`. The example knowledge tree in this
 source repository is not a default destination for run-specific learning.
 
+Use the [record-boundary policy](SPEC.md#documentation-knowledge-and-run-artifacts)
+to distinguish authoritative project documentation, evidence-backed durable
+learning, and execution-run artifacts by purpose, not folder name. Preserve
+suitable approved homes and ownership; cite canonical documents instead of copying
+them into knowledge. Curation grants no general project-documentation write
+permission or authority to silently revise requirements. Ordinary project documents
+do not inherit knowledge metadata from their topic or location.
+
 Read the relevant existing knowledge before deciding what to change; consider
 updating or merging it before appending new material. A reasoned `no_change` result
 is valid for duplicate, temporary, unsupported, code-obvious information or other

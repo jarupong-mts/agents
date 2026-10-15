@@ -22,6 +22,20 @@ Check:
 - security and data handling
 - maintainability
 - test quality and tautological assertions
+- record purpose, canonical home, ownership, and approved destination/write scope
+- duplicate authority, canonical references, distinct supported learning, and
+  explicit unresolved contradictions
+- metadata applicability: configured knowledge records retain required metadata
+  and ADR safeguards; ordinary project documents do not inherit knowledge metadata
+  from topic or location
+- lifecycle, approval, concurrency, retry, and independent post-review curation
+  safeguards
+
+Apply the [record-boundary policy](../SPEC.md#documentation-knowledge-and-run-artifacts)
+to those checks. Confirm that reused homes have compatible discovered or approved
+purpose and ownership, that general documentation areas are not assumed to hold
+learning or run artifacts, and that curation grants no general project-documentation
+write permission or silent authority to change requirements.
 
 For unclear failures or suspicious behavior, load the `root-cause` skill and request
 evidence before stating a conclusion.
