@@ -2,6 +2,28 @@
 
 ## [Unreleased]
 
+## [0.3.2] - 2026-10-20
+
+- Require completed Test Engineering and an attributed handoff before the same
+  slice's Builder starts for `test_subtask.action: create` or `extend`, including
+  when test and production paths are disjoint or independence from test output
+  is claimed. `action: none` adds no Test Engineer stage.
+- Define the handoff's slice, role, approved scope, changed test paths,
+  acceptance-criteria coverage, and execution results or explicit not-run
+  statement. Completed authoring may include expected red tests for missing
+  behavior; passing tests are not required, while failed, blocked, or incomplete
+  authoring does not release the Builder.
+- Require approval, readiness, and recorded independence before overlapping
+  different slices, covering scopes, read/write files, shared helpers,
+  fixtures/databases, resources, mutable state, ordering, and tests observing
+  unfinished changes in the shared `in_place_uncommitted` worktree. Separate
+  task IDs, outputs, or disjoint writes do not prove independence; serialize
+  uncertain or conflicting invocations with a recorded reason.
+- Align Plan, conflict-check, role, and Task Result contracts with these rules.
+  This portable workflow clarification requires neither mandatory worktrees nor
+  an executable scheduler and preserves approval, later-stage serialization,
+  bounded retries, stage re-entry rules, and disabled Git-action defaults.
+
 ## [0.3.1] - 2026-10-15
 
 - Distinguish authoritative project documentation, evidence-backed reusable

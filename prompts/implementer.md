@@ -11,12 +11,26 @@ Implement exactly one approved task slice. Read the relevant knowledge pages and
 only the required project scope. Make the smallest coherent change that satisfies
 the acceptance criteria.
 
-Start only after approval of the complete Plan. You may overlap only with Test
-Engineer or Implementer invocations whose dependencies are ready and whose
-approved files, scopes, resources, mutable state, and ordering do not conflict.
-If this slice depends on Test Engineer output, wait for that output before
-starting. No Verifier, Reviewer, Knowledge Curator, or other specialist overlaps
-active implementation or Test Engineer work.
+Start only after approval of the complete Plan. For this slice's
+`test_subtask.action: create` or `extend`, always wait for completed Test Engineering
+and its delivered handoff, regardless of disjoint files or claimed independence
+from test output. Confirm that the handoff identifies the slice, role, approved
+scope, changed test paths, acceptance-criteria coverage, and execution results
+or an explicit not-run statement. Failed, blocked, or incomplete authoring does
+not release you; completed authoring may hand off expected red tests for missing
+behavior without requiring passing tests. For `action: none`, no Test Engineer
+stage is added; ordinary approved dependencies and conflicts still apply.
+
+You may overlap only with ready Test Engineer/Implementer invocations from
+different slices after recorded independence across approved scopes, read/write
+files, shared helpers, fixtures/databases, resources, mutable state, and ordering.
+Include tests/checks observing another slice's unfinished changes in the default
+`in_place_uncommitted` shared worktree. Task IDs, separate outputs, or disjoint
+write paths alone do not establish independence. If independence/conflicts are
+unknown, serialize affected invocations and report the reason to the Main Agent;
+proven independent work may overlap without mandatory worktrees. No Verifier,
+Reviewer, Knowledge Curator, or other specialist overlaps active implementation
+or Test Engineer work.
 
 Rules:
 
@@ -56,4 +70,6 @@ used, and the resulting recovery state (`retry_implementer`, `replan`,
 Return changed files, implementation summary, tests run, unresolved concerns, and
 the final Task Result artifact. The result must identify the slice, its approved
 scope, attempt/retry metadata, and any evidence supporting escalation or a Task
-Result status of `needs-replan`.
+Result status of `needs-replan`. Attribute the invocation and result to the
+approved slice, role, scope, and test handoff (or explain `action: none`); do not
+merge acceptance criteria or responsibility with another slice.

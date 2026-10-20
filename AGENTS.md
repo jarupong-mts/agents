@@ -94,8 +94,9 @@ Clarify only when needed → Planner completes the full Plan (single-pass by def
 User approves the full Plan
     ↓
 Test Engineer / Builder work only: schedule ready, non-conflicting invocations
-    ├─ Test Engineer and Builder may overlap unless Builder depends on test output
-    └─ independent Test Engineer / Builder slices may overlap
+    ├─ create/extend: same-slice Test Engineer completes → handoff → Builder
+    ├─ none: no Test Engineer stage; retain dependencies and conflict checks
+    └─ different slices overlap only with recorded independence; unknown → serialize
     ↓
 all test/build work completes → Verifier → Reviewer
     ↓
@@ -132,9 +133,27 @@ requires renewed user approval before work resumes.
 
 Only Test Engineer and Implementer/Builder invocations may overlap active
 specialist work. Schedule their invocations only when dependencies are ready and
-approved scopes, files, resources, mutable state, and ordering constraints do not
-conflict. If a Builder depends on a Test Engineer's output, run that pair in
-sequence. Verifier, Reviewer, Knowledge Curator, and all other specialist work
+approved scopes do not conflict. For `test_subtask.action: create` or `extend`,
+the same slice's Builder always waits for completed Test Engineering and its
+delivered handoff, regardless of disjoint files or claimed independence from
+test output. The handoff identifies the slice, role, approved scope, changed
+test paths, acceptance-criteria coverage, and execution results or an explicit
+not-run statement. Failed, blocked, or incomplete test authoring does not release
+the Builder. Completed authoring may include expected red tests for missing
+behavior; passing tests are not required to start the Builder. For `action: none`,
+add no Test Engineer stage; ordinary approved dependencies and conflicts remain.
+
+Different slices may overlap only after a recorded independence assessment of
+scopes, read/write file use, shared helpers, fixtures/databases, resources, mutable
+state, and ordering. Include tests/checks observing another slice's unfinished
+changes in the default `in_place_uncommitted` shared worktree. Task IDs, separate
+outputs, or disjoint write paths alone do not establish independence. Serialize
+affected invocations and record the reason when independence/conflicts are
+unknown; proven independent work may overlap without mandatory worktrees. Keep
+every invocation and result attributable to its approved slice, role, scope, and
+handoff; concurrency never merges acceptance criteria or responsibility.
+
+Verifier, Reviewer, Knowledge Curator, and all other specialist work
 must wait until active Test Engineer/Builder work completes; later stages also
 run without overlapping another specialist.
 
@@ -190,8 +209,10 @@ Before implementation:
    lint context is needed; it is not a mandatory startup read.
 3. Complete Intake, resolve required clarification, then delegate Planner to
    finish the entire Plan before presenting it for approval.
-4. Identify slice dependencies and conflicts so only Test Engineer and Builder
-   invocations with ready, non-conflicting scopes can overlap after approval.
+4. Record slice dependencies, same-slice test handoffs, and cross-slice independence
+   across read/write scopes and shared state/worktree visibility. Only ready,
+   proven independent Test Engineer/Builder invocations from different slices
+   may overlap after approval; serialize unknown independence with a reason.
 5. Present the plan to the user and obtain explicit approval.
 
 No specialist may edit project files before approval. The Main Agent must not infer

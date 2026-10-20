@@ -1,7 +1,7 @@
 # Portable Agent Harness Specification
 
 Status: concept
-Version: 0.3.1
+Version: 0.3.2
 
 ## 1. Purpose
 
@@ -95,9 +95,13 @@ Intake must complete before Planner starts. Planner creates the full Plan, with
 all slices and dependencies, before presenting it for approval; do not alternate
 between planning a slice and implementing it. After approval, only Test Engineer
 and Implementer/Builder invocations may overlap active specialist work. Schedule
-ready invocations concurrently only when approved scopes, files, resources,
-mutable state, and ordering constraints do not conflict. If a Builder depends on
-Test Engineer output, run that pair in sequence. All Test Engineer/Builder work
+ready invocations from different slices concurrently only after recording their
+independence, including read/write file use, shared helpers, fixtures/databases,
+resources, mutable state, ordering, and shared-worktree visibility. Unknown
+independence or a conflict serializes the affected invocations with a recorded
+reason. For `test_subtask.action: create` or `extend`, the same slice's Builder
+always waits for completed Test Engineering and its delivered handoff; `none`
+adds no Test Engineer stage. All Test Engineer/Builder work
 must finish before Verifier starts. Verifier, Reviewer, Knowledge Curator, and all
 other specialists run without overlapping active specialist work. Ordinary
 implementation, test, lint, build, acceptance, or verification failures retry
@@ -199,11 +203,21 @@ proposed change depends on an unverified cause.
 
 The Planner returns the complete Plan before approval: every slice includes
 files, dependencies, acceptance criteria, difficulty, and test requirements.
-The Plan also identifies scopes, resources, mutable state, and ordering
-constraints. Do not begin implementation and then plan remaining slices as work
-proceeds. A slice is ready when its declared dependencies are complete and its
-approved execution scope does not conflict with other work scheduled at the same
-time.
+The Plan also records each invocation's read/write file use, shared helpers,
+fixtures/databases, resources, mutable state, ordering constraints, and evidence
+of cross-slice independence. Include files observed by tests and checks. In the
+default `in_place_uncommitted` mode, tests/checks may observe another slice's
+unfinished changes in the shared worktree. Different task IDs, separate outputs,
+or disjoint write paths alone do not establish independence. If independence or
+conflicts are unknown, serialize affected invocations and record why; proven
+independent slices may overlap without requiring worktrees.
+
+Do not begin implementation and then plan remaining slices as work proceeds.
+A slice is ready when its declared dependencies are complete. Its Builder also
+waits for completed Test Engineering and a delivered handoff when that slice's
+test action is `create` or `extend`; disjoint test/production files or claimed
+independence from test output do not waive this order. Scheduling also requires
+the approved invocation scope to be free of conflicts with concurrent work.
 
 Planning runs once per run by default. The Main Agent may re-enter Planning only
 after explicit human feedback on the Plan, or after evidence shows that the Plan
@@ -229,9 +243,12 @@ repeats the approval step. No agent may edit project files before approval.
 
 Approval authorizes only the complete reviewed Plan and its declared scopes.
 After approval, the Main Agent builds the dependency-aware execution graph. Only
-Test Engineer and Builder invocations may overlap: multiple ready, non-conflicting
-test or implementation slices may run concurrently. If implementation depends
-on a Test Engineer's output, sequence that pair. Do not run Verifier, Reviewer,
+Test Engineer and Builder invocations from different slices may overlap only
+when ready and supported by recorded independence and conflict assessments.
+For `create` or `extend`, sequence the same slice's Builder after completed Test
+Engineering and its delivered handoff, regardless of file separation or claimed
+independence from test output. For `none`, add no Test Engineer stage and retain
+ordinary approved dependencies and conflict checks. Do not run Verifier, Reviewer,
 Knowledge Curator, or another specialist during active Test Engineer/Builder
 work. After that work settles, run verification, then review, serially. A re-plan
 or material scope change pauses further edits under the old approval and requires
@@ -246,13 +263,26 @@ For a feature or bugfix without matching coverage, the Test Engineer creates or
 extends tests from the acceptance criteria. It should not depend on the
 Implementer's implementation approach.
 
-Test Engineering dependencies are per slice, not global. Test Engineering is a
-prerequisite for a Builder only when that slice's implementation depends on its
-output. Independent Test Engineer and Builder invocations may run concurrently
-after approval when files, resources, mutable state, dependencies, and ordering
-do not conflict. These are the only specialist roles allowed to overlap; no
-Verifier, Reviewer, Knowledge Curator, or other specialist runs during this
-work. Test Engineers do not modify production code.
+Test Engineering ordering is per slice, not a global test-authoring barrier.
+If `test_subtask.action` is `create` or `extend`, that slice's Builder always
+waits until test authoring is completed and the Main Agent has delivered its
+handoff to the Builder. The handoff identifies the approved slice, role, scope,
+changed test paths, acceptance-criteria coverage, and execution results or an
+explicit statement that tests were not run. Failed, blocked, or incomplete test
+authoring does not release the Builder. Completed authoring may include expected
+failing (red) tests for missing behavior; passing tests are not a prerequisite
+for starting implementation. For `action: none`, no Test Engineer stage is
+created; ordinary approved dependencies and conflicts still apply.
+
+Only Test Engineer and Builder invocations from different slices may overlap
+after approval, readiness, and the recorded independence assessment in section
+3.4. Serialize affected invocations when independence/conflicts are unknown or
+tests/checks may observe conflicting unfinished shared-worktree changes; record
+the reason. These are the only specialist roles allowed to overlap; no Verifier,
+Reviewer, Knowledge Curator, or other specialist runs during this work. Test
+Engineers do not modify production code. Keep every invocation and result
+attributable to its approved slice, role, scope, and handoff; concurrency does
+not merge acceptance criteria or responsibility.
 
 For refactors, existing tests are used as regression protection. Cosmetic changes
 may use a smoke or visual check instead of a new unit test.
@@ -261,8 +291,16 @@ may use a smoke or visual check instead of a new unit test.
 
 The Main Agent delegates one approved task slice at a time to each Implementer
 invocation. Multiple Implementer invocations, and eligible Test Engineer
-invocations, may overlap after approval when slices are dependency-ready and have
-no conflicting files, shared resources, mutable state, or ordering requirements.
+invocations from different slices may overlap after approval when dependency-ready
+and supported by recorded independence across read/write file use, shared helpers,
+fixtures/databases, resources, mutable state, ordering, and shared-worktree
+visibility. Serialize affected invocations with a reason when independence or
+conflicts are unknown. For `create` or `extend`, the same slice's Builder waits
+for completed Test Engineering and its delivered handoff even with disjoint
+files; `none` creates no Test Engineer stage. Completed authoring may hand off
+expected red tests; failed, blocked, or incomplete authoring does not release
+the Builder.
+
 No Verifier, Reviewer, Knowledge Curator, or other specialist may overlap active
 Test Engineer/Implementer work. The Implementer changes only approved scope,
 follows acceptance criteria, and returns a structured result.
@@ -301,8 +339,12 @@ the narrowest useful checks first, followed by affected regression checks:
 - acceptance-criteria checks
 - direct and dependent regression tests
 
-No specialist work overlaps verification. The Main Agent decides whether a
-failure requires a retry, escalation, re-planning, or user input.
+Verify the recorded same-slice test-authoring handoffs and cross-slice scheduling
+assessments, including read visibility of unfinished shared-worktree changes.
+Attribute checks and results to the approved slice, role, scope, and handoff;
+separate outputs do not establish execution isolation. No specialist work
+overlaps verification. The Main Agent decides whether a failure requires a retry,
+escalation, re-planning, or user input.
 
 The Verifier returns a recommended recovery action with its result. It recommends
 `retry_implementer` for an ordinary implementation, test, acceptance, lint,

@@ -47,11 +47,27 @@ exhausted, and `user_input` when a required decision or clarification cannot be
 resolved within the approved scope.
 
 Verify scheduling and governance as part of acceptance checks: only Test Engineer
-and Builder invocations may overlap, and only when dependencies are ready and
-files, scopes, resources, mutable state, and ordering do not conflict. Sequence a
-Builder behind test output it depends on. Confirm verification waited for all
-test/build work, no implementation began before full-plan approval, and material
-re-planning requires renewed approval before further edits.
+and Builder invocations from different slices may overlap, and only after approval,
+readiness, and recorded independence across scopes, read/write files, shared
+helpers, fixtures/databases, resources, mutable state, and ordering. Check whether
+tests/checks could observe another slice's unfinished changes in the default
+`in_place_uncommitted` shared worktree. Task IDs, separate outputs, or disjoint
+write paths alone do not prove independence. Unknown independence/conflicts must
+serialize affected invocations with a recorded reason; proven independent work
+may overlap without mandatory worktrees.
+
+For `test_subtask.action: create` or `extend`, verify the same slice's Builder
+waited for completed Test Engineering and its delivered handoff even with disjoint
+files or claimed independence from test output. Check handoff attribution to the
+slice, role, approved scope, changed test paths, criteria coverage, and execution
+results or an explicit not-run statement. Failed, blocked, or incomplete authoring
+must not release the Builder; completed authoring may include expected red tests
+for missing behavior without a green-test prerequisite. `action: none` creates
+no Test Engineer stage and retains ordinary approved dependencies/conflicts.
+Check attribution of every invocation/result to its approved slice, role, scope,
+and handoff without merged criteria or responsibility. Confirm verification waited
+for all test/build work, no implementation began before full-plan approval, and
+material re-planning requires renewed approval before further edits.
 
 Return a `Verification Result` using [`schemas/artifacts.md`](../schemas/artifacts.md).
 Include the affected slice, failure classification, evidence, retry/re-entry

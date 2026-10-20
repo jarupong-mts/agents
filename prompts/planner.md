@@ -31,8 +31,10 @@ Break the work into small, ordered, self-contained slices. For each slice define
 - objective
 - files or resources in scope
 - dependencies
-- exclusive files, shared resources, mutable state, and ordering constraints
-- whether the slice is eligible to run in parallel with each other slice
+- read/write file use, shared helpers, fixtures/databases, resources, mutable
+  state, and ordering constraints, including files observed by tests/checks
+- whether the slice is eligible to overlap each other slice, with recorded
+  independence evidence or a serialization reason
 - difficulty level
 - acceptance criteria
 - test action: create, extend, or none
@@ -50,13 +52,27 @@ learning or run-artifact destination. Keep unresolved destinations and conflicti
 evidence explicit; requirement changes need the applicable approved scope and owner.
 
 Build a dependency-aware execution graph. Mark a slice ready only when its
-dependencies are complete. Only Test Engineer and Builder invocations may run
-concurrently after approval, and only when their approved files, resources,
-mutable state, and ordering requirements do not conflict. Include test files in
-the conflict scope. A Builder that depends on Test Engineer output waits for that
-output. Identify the specific conflict and serialization reason whenever a
-ready invocation must wait. Multiple independent slices can be active, with one
-approved slice per Builder invocation.
+dependencies are complete. For `test_subtask.action: create` or `extend`, always
+sequence the same slice's Builder after completed Test Engineering and its
+delivered handoff, regardless of disjoint files or claimed independence from
+test output. Specify a handoff identifying the slice, role, approved scope,
+changed test paths, acceptance-criteria coverage, and execution results or an
+explicit not-run statement. Failed, blocked, or incomplete test authoring does
+not release the Builder; completed authoring may include expected red tests for
+missing behavior without requiring green tests. For `action: none`, add no Test
+Engineer stage; retain ordinary approved dependencies and conflicts.
+
+Only Test Engineer and Builder invocations from different slices may overlap
+after approval, readiness, and a recorded independence assessment covering scopes,
+read/write files, shared helpers, fixtures/databases, resources, mutable state,
+and ordering. Include test files and what tests/checks read in the conflict scope.
+In the default `in_place_uncommitted` shared worktree, assess whether they may
+observe another slice's unfinished changes. Different task IDs, separate outputs,
+or disjoint write paths alone do not establish independence. Serialize affected
+invocations when independence/conflicts are unknown and record why; preserve
+proven independent overlap without requiring worktrees. Keep one approved slice
+per invocation and attribute each result to its slice, role, scope, and handoff;
+do not combine acceptance criteria or responsibility across slices.
 
 Record the run-once and re-entry policy in the Plan: Intake and Planning each
 execute once by default; Intake re-enters only for changed clarification or a

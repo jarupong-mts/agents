@@ -31,8 +31,9 @@ Intake completes → clarify if needed → Planner completes the full Plan
 User approves the full Plan
     ↓
 Test Engineer / Builder invocations only: ready, non-conflicting work may overlap
-    ├─ dependent test/build pair runs in order
-    └─ dependencies and conflicts serialize affected work
+    ├─ create/extend: same-slice Test Engineer completes → handoff → Builder
+    ├─ none: no Test Engineer stage; retain dependencies and conflict checks
+    └─ different slices: recorded independence allows overlap; unknown → serialize
     ↓
 all test/build work completes → Verifier → Reviewer
     ↓
@@ -58,9 +59,25 @@ The execution workflow uses specialist subagents for Intake, Planning, Test Engi
 Implementation, Verification, Review, and Knowledge Curation. Intake
 must finish before Planner starts, and Planner completes the full Plan before
 approval or implementation. Only Test Engineer and Builder invocations can
-overlap, and only when dependencies are ready and scopes, files, resources,
-mutable state, and ordering do not conflict. A Builder waits for test output it
-depends on. Verification, Review, and Knowledge Curation wait until
+overlap. For `test_subtask.action: create` or `extend`, a same-slice Builder always
+waits for completed Test Engineering and its delivered handoff, even with disjoint
+files. The handoff identifies the slice, role, approved scope, changed test paths,
+criteria coverage, and execution results or an explicit not-run statement.
+Completed authoring may include expected red tests for missing behavior; failed,
+blocked, or incomplete authoring does not release the Builder. Passing tests are
+not a prerequisite for starting implementation. `action: none` creates no Test
+Engineer stage and retains ordinary approved dependencies and conflict checks.
+
+Different slices may overlap only when approved, ready, and supported by a
+recorded independence assessment of scopes, read/write file use, shared helpers,
+fixtures/databases, resources, mutable state, and ordering. In the default
+`in_place_uncommitted` shared worktree, assess whether tests/checks can observe
+another slice's unfinished changes. Task IDs, separate outputs, or disjoint writes
+alone do not prove independence. Serialize affected invocations with a recorded
+reason when independence/conflicts are unknown; proven independent work can
+overlap without mandatory worktrees. Each invocation and result keeps its approved
+slice, role, scope, and handoff attribution, with separate criteria and
+responsibility. Verification, Review, and Knowledge Curation wait until
 test/build work finishes and do not overlap other specialist work. Root-cause
 analysis is a reusable skill loaded by a role when the task requires it; it is
 not a permanent agent role.

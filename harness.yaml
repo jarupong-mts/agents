@@ -1,4 +1,4 @@
-version: "0.3.1"
+version: "0.3.2"
 name: portable-agent-harness
 
 application:
@@ -321,7 +321,18 @@ workflow:
       only_listed_roles_may_overlap_active_specialist_work: true
       require_dependencies_ready: true
       require_nonconflicting_scopes_files_resources_mutable_state_and_ordering: true
-      sequence_builder_after_test_when_builder_depends_on_test_output: true
+      # create/extend: completed authoring and delivered same-slice handoff;
+      # none: no Test Engineer stage. Disjoint files do not waive ordering.
+      # Handoff: slice/role/scope, changed test paths, criteria coverage, and
+      # execution results or explicit not-run. Expected red tests may be handed
+      # off; failed, blocked, or incomplete authoring cannot release Builder.
+      sequence_builder_after_completed_same_slice_test_subtask: true
+      # Assess read/write files, helpers, fixtures/databases, resources, state,
+      # ordering, and tests/checks observing unfinished shared-worktree changes.
+      # Task IDs, separate outputs, or disjoint writes alone do not prove independence.
+      cross_slice_independence_must_be_recorded: true
+      shared_worktree_read_visibility_must_be_considered: true
+      unknown_independence_route: serialize_affected_invocations
       verifier_reviewer_knowledge_curator_and_other_specialists_overlap_active_work: false
       all_test_engineer_and_implementer_work_completes_before_verification: true
       verification_completes_before_review: true

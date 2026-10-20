@@ -333,7 +333,12 @@ execution:
     only_listed_roles_may_overlap_active_specialist_work: true
     dependencies_must_be_ready: true
     scopes_files_resources_mutable_state_and_ordering_must_not_conflict: true
-    sequence_builder_after_test_when_builder_depends_on_test_output: true
+    # create/extend require completed same-slice authoring and delivered handoff;
+    # none adds no Test Engineer stage. Expected red tests may be handed off.
+    sequence_builder_after_completed_same_slice_test_subtask: true
+    cross_slice_independence_must_be_recorded: true
+    shared_worktree_read_visibility_must_be_considered: true
+    unknown_independence_route: serialize_affected_invocations
     verifier_reviewer_knowledge_curator_and_other_specialists_overlap_active_work: false
     all_test_engineer_and_implementer_work_completes_before_verification: true
     verification_completes_before_review: true
@@ -384,13 +389,21 @@ tasks:
       - src/auth/state.ts
     level: hard              # easy | hard
     depends_on: []            # readiness requires every listed dependency to complete
-    parallel_eligible: true   # eligible only when ready and non-conflicting
+    parallel_eligible: true   # cross-slice only, after readiness and recorded independence
     conflict_checks:
       files:
-        - tests/auth/state.test.ts # test_subtask.file is part of conflict scope
+        - src/auth/state.ts
+        - tests/auth/state.test.ts # include test files and files tests/checks observe
+      read_files: [src/auth/state.ts, tests/auth/state.test.ts]
+      write_files: [src/auth/state.ts, tests/auth/state.test.ts]
+      shared_helpers: []
+      fixtures_or_databases: []
       resources: []           # shared mutable resources require serialization
       state: []               # conflicting mutable state requires serialization
       ordering: []            # explicit ordering constraints require serialization
+      independence_evidence: [] # no concurrent pair is proven by this example
+      serialization_reasons:
+        - "Same-slice Builder waits for completed create authoring and delivered handoff"
     acceptance:
       - "State expires after five minutes"
       - "State is single-use"
@@ -399,6 +412,7 @@ tasks:
       file: tests/auth/state.test.ts
       cases:
         - "expired state is rejected"
+        - "state cannot be reused"
   - task_id: slice-2
     description: "Validate state in the callback"
     files:
@@ -407,28 +421,90 @@ tasks:
     depends_on: [slice-1]
     parallel_eligible: true
     conflict_checks:
-      files: []
+      files: [src/auth/state.ts, src/auth/callback.ts, tests/auth/callback.test.ts]
+      read_files: [src/auth/state.ts, src/auth/callback.ts, tests/auth/callback.test.ts]
+      write_files: [src/auth/callback.ts, tests/auth/callback.test.ts]
+      shared_helpers: [src/auth/state.ts]
+      fixtures_or_databases: []
       resources: []
       state: []
       ordering: [slice-1]
+      independence_evidence: []
+      serialization_reasons:
+        - "Callback tests read state.ts; wait for slice-1's unfinished shared-worktree changes to settle"
+        - "Same-slice Builder waits for completed extend authoring and delivered handoff"
     acceptance:
       - "Invalid state returns an authorization error"
+    test_subtask:
+      action: extend
+      file: tests/auth/callback.test.ts
+      cases:
+        - "invalid state returns an authorization error"
+  - task_id: slice-3
+    description: "Document callback state errors"
+    files: [docs/auth.md]
+    level: easy
+    depends_on: [slice-2]
+    parallel_eligible: true
+    conflict_checks:
+      files: [src/auth/callback.ts, docs/auth.md]
+      read_files: [src/auth/callback.ts, docs/auth.md]
+      write_files: [docs/auth.md]
+      shared_helpers: []
+      fixtures_or_databases: []
+      resources: []
+      state: []
+      ordering: [slice-2]
+      independence_evidence: []
+      serialization_reasons:
+        - "Documentation reads callback behavior; wait for slice-2 to complete"
+    acceptance:
+      - "Documentation describes the authorization error for invalid state"
+    test_subtask:
+      action: none
+      file: null
+      cases: []
+      reason: "Documentation-only slice; verify its wording against the completed callback behavior"
 regression_tests: []
 assumptions: []
 ```
 
-`depends_on` defines readiness: a task with no dependencies is ready when the
-full Plan is approved, and a task with dependencies is ready only after all
-listed tasks complete. `parallel_eligible` permits concurrent scheduling only
-for Test Engineer and Implementer invocations after readiness and conflict
-checks pass. A Builder that depends on test output waits for that Test Engineer
-task. Overlapping files, shared resources, conflicting mutable state, or ordering
-constraints serialize the affected tasks; `test_subtask.file` is part of the
-slice's scheduled file scope and must be included in `conflict_checks.files` or
-equivalent conflict analysis. Verifier, Reviewer, Knowledge Curator, and other
-specialists never overlap active specialist work; verification follows all
-test/build work, and review follows verification. These fields describe the
-contract and do not implement a scheduler.
+`depends_on` defines slice readiness: a task with no dependencies is ready when
+the full Plan is approved, and a task with dependencies is ready only after all
+listed tasks complete. Every slice explicitly declares `test_subtask.action`.
+For `create` or `extend`, that slice's Builder always waits for completed Test
+Engineering and its delivered handoff, regardless of disjoint test/production
+files or claimed independence from test output. The handoff identifies its
+approved slice, role, scope, changed test paths, acceptance-criteria coverage,
+and execution results or an explicit not-run statement. Failed, blocked, or
+incomplete test authoring does not release the Builder. Completed authoring
+may include expected red tests for missing behavior; passing tests are not a
+prerequisite for implementation. `action: none` adds no Test Engineer stage;
+ordinary approved dependencies and conflict checks still apply.
+
+`parallel_eligible` permits overlap only for Test Engineer and Implementer
+invocations from different slices after approval, readiness, and a recorded
+independence assessment in `conflict_checks` or an adapter-native equivalent.
+Assess approved scopes, read/write file use, shared helpers, fixtures/databases,
+resources, mutable state, and ordering. `files` covers the complete scheduled
+file scope, including `test_subtask.file` and files observed by tests/checks;
+`read_files` and `write_files` distinguish their uses. Record evidence that each
+proposed concurrent pair is independent, including whether tests/checks may
+observe another slice's unfinished changes in the default `in_place_uncommitted`
+shared worktree. Task IDs, separate outputs, or disjoint write paths alone do
+not establish independence. When independence/conflicts are unknown or a conflict
+exists, serialize affected invocations and record the reason in
+`serialization_reasons` or equivalent existing run state. Proven independent
+slices may overlap without requiring worktrees. The example's declared
+dependencies serialize its slices; `parallel_eligible: true` alone grants no
+overlap.
+
+Keep every invocation and result attributable to its approved slice, role,
+scope, and handoff; concurrency never combines acceptance criteria or
+responsibility. Verifier, Reviewer, Knowledge Curator, and other specialists
+never overlap active specialist work; verification follows all test/build work,
+then review and curation run serially. These fields describe the contract and do
+not implement a scheduler.
 
 For record changes, use existing task files, acceptance criteria, assumptions, and
 scope prose to state purpose, canonical home, owner, and approved writes. Link
@@ -442,6 +518,9 @@ applicable. Curation does not grant general project-documentation write permissi
 
 ```yaml
 task_id: slice-1
+role: implementer       # test_engineer | implementer
+approved_scope: "src/auth/state.ts; five-minute expiry and single-use state"
+test_handoff_ref: "slice-1/test_engineer/attempt-1" # logical result reference; null for action none
 status: completed       # completed | failed | blocked | needs-replan
 attempt: 1
 retry:
@@ -457,6 +536,21 @@ summary: "Added expiring, single-use server-side state storage"
 concerns: []
 root_cause: null
 ```
+
+Use this Task Result contract for Test Engineer handoffs as well as Builder
+results, or an adapter-native equivalent preserving the same attribution.
+`task_id`, `role`, and `approved_scope` identify the invocation; do not merge
+criteria or responsibility across slices. A Test Engineer's `status` describes
+authoring completion separately from test success. Its handoff uses
+`files_changed` for changed test paths, `summary` for the acceptance-criteria
+coverage, and `tests_run` for execution results or an explicit not-run statement.
+Expected red tests for missing behavior may accompany `status: completed`;
+failed, blocked, or incomplete authoring cannot release the same slice's Builder.
+The Main Agent must deliver the completed result to the Builder before it starts.
+A Builder's `test_handoff_ref` identifies that exact delivered result. A Test
+Engineer sets this reference to `null` for its own outgoing handoff. For
+`action: none`, the Builder sets it to `null` and explains the absence of a Test
+Engineer stage in `summary`; approved dependencies/conflicts still apply.
 
 ## Verification Result
 
