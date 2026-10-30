@@ -155,12 +155,45 @@ folder name. Curation cannot silently revise requirements or grant general
 project-documentation write permission. Ordinary documents do not inherit
 knowledge metadata from their topic or location.
 
+## Fixed models and UI Implementer
+
+Model assignments are fixed in [`harness.yaml`](harness.yaml) under `model_policy`.
+Every LLM agent uses `high` reasoning effort. There is no tier-based model
+switching and no automatic escalation. If a host does not support an identifier,
+report the incompatibility instead of substituting another model.
+
+| Role | Claude Code | Codex |
+|---|---|---|
+| Main Agent | claude-sonnet-5-5 | gpt-6.1-terra |
+| Intake | claude-haiku-5-5 | gpt-6-luna |
+| Planner | claude-opus-5-5 | gpt-6.1-sol |
+| Test Engineer | claude-sonnet-5-5 | gpt-6.1-sol |
+| Implementer | claude-sonnet-5-5 | gpt-6.1-sol |
+| UI Implementer | claude-opus-5-5 | gpt-6.1-sol |
+| Reviewer | claude-opus-5-5 | gpt-6.1-sol |
+| Knowledge Curator | claude-haiku-5-5 | gpt-6-luna |
+| Verifier | deterministic scripts and tools | deterministic scripts and tools |
+
+The **UI Implementer** ([`prompts/ui-implementer.md`](prompts/ui-implementer.md))
+is a sibling of the Implementer inside the existing implementation stage, not a
+new stage. The Main Agent delegates frontend/UI slices (redesigns, dashboards,
+layouts, components, styling, responsive interfaces) to it and backend/general
+slices to the Implementer, never both for one slice. Both use the same task
+context, boundaries, approval rules, and Task Result schema. The UI Implementer
+makes visual decisions within the approved scope, so the Planner need not specify
+every visual detail.
+
+This repository also carries a native projection of these roles:
+`.claude/agents/` and `.claude/settings.json` for Claude Code, and `.codex/agents/`
+and `.codex/config.toml` for Codex. Each agent file points to its role prompt
+instead of copying it.
+
 ## Files
 
 - [`SPEC.md`](SPEC.md) — architecture and workflow contract.
 - [`APPLY.md`](APPLY.md) — protocol for applying the concept to another project.
 - [`schemas/artifacts.md`](schemas/artifacts.md) — portable input/output contracts.
-- [`prompts/`](prompts) — role prompt templates.
+- [`prompts/`](prompts) — role prompt templates, including the UI Implementer.
 - [`adapters/README.md`](adapters/README.md) — requirements for agent-platform adapters.
 - [`skills/README.md`](skills/README.md) — reusable skill model and materialization
   rules.
