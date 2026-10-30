@@ -27,8 +27,9 @@ relevant knowledge references, and its approved scope.
 The UI Implementer is a sibling of the Implementer within the implementation
 stage, not a new stage. Delegate frontend/UI slices (redesigns, dashboards,
 layouts, components, styling, responsive interfaces, visual improvements) to it
-and backend/general coding slices to the Implementer. Never invoke both for the
-same slice; both use the same approved task context, contract, and Task Result
+and backend/general coding slices to the Implementer, as declared by the Plan
+slice's required `executor` (approved with the Plan; mixed UI/backend work is split
+into separate slices). Never invoke both for the same slice; both use the same approved task context, contract, and Task Result
 schema.
 
 Do not silently collapse these responsibilities into the Main Agent. If the host

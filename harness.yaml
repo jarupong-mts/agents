@@ -391,6 +391,10 @@ implementation_routing:
     implementer: "backend and general coding slices"
     ui_implementer: "frontend/UI slices: redesigns, dashboards, layouts, components, styling, responsive interfaces, visual improvements"
   one_agent_per_slice: true
+  # Planner declares `executor` on every slice; it is fixed at Plan approval.
+  executor_field: {required: true, values: [implementer, ui-implementer], set_by: planner}
+  split_mixed_ui_backend_slices: true
+  task_result_agent_must_match_executor: true
   same_contract_as_implementer: [task_context, task_boundaries, approval_rules, task_result_schema, workflow]
   task_result_role: implementer
   separate_ui_designer_or_visual_reviewer: false

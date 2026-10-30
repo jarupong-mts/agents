@@ -388,6 +388,7 @@ tasks:
     files:
       - src/auth/state.ts
     level: hard              # easy | hard
+    executor: implementer     # implementer | ui-implementer; required, fixed at approval
     depends_on: []            # readiness requires every listed dependency to complete
     parallel_eligible: true   # cross-slice only, after readiness and recorded independence
     conflict_checks:
@@ -418,6 +419,7 @@ tasks:
     files:
       - src/auth/callback.ts
     level: easy
+    executor: implementer     # implementer | ui-implementer; required, fixed at approval
     depends_on: [slice-1]
     parallel_eligible: true
     conflict_checks:
@@ -444,6 +446,7 @@ tasks:
     description: "Document callback state errors"
     files: [docs/auth.md]
     level: easy
+    executor: implementer     # implementer | ui-implementer; required, fixed at approval
     depends_on: [slice-2]
     parallel_eligible: true
     conflict_checks:
@@ -468,6 +471,18 @@ tasks:
 regression_tests: []
 assumptions: []
 ```
+
+`executor` names the Builder for the slice and is required on every Plan slice. Use
+`ui-implementer` only when the slice's write scope is primarily frontend/UI
+(redesigns, dashboards, layouts, components, styling, responsive interfaces) and
+`implementer` for backend and general coding. A slice that needs both substantial
+UI and backend work must be split into separate slices with a dependency, one
+executor each; a small backend change that the approved criteria require inside a
+UI slice may stay with `ui-implementer` and must be named in the slice's `files`.
+The Main Agent delegates the slice to its approved executor only; changing it
+requires renewed Plan approval. A Builder's Task Result `agent` must equal the
+slice's `executor`; a mismatch or missing value is an invalid result to be
+returned to the Main Agent, not accepted as `implementer` by default.
 
 `depends_on` defines slice readiness: a task with no dependencies is ready when
 the full Plan is approved, and a task with dependencies is ready only after all
@@ -519,7 +534,7 @@ applicable. Curation does not grant general project-documentation write permissi
 ```yaml
 task_id: slice-1
 role: implementer       # test_engineer | implementer (UI Implementer also uses implementer)
-agent: implementer      # optional: implementer | ui-implementer; defaults to implementer
+agent: implementer      # required for Builder results: implementer | ui-implementer; must equal the slice's approved executor; null for test_engineer
 approved_scope: "src/auth/state.ts; five-minute expiry and single-use state"
 test_handoff_ref: "slice-1/test_engineer/attempt-1" # logical result reference; null for action none
 status: completed       # completed | failed | blocked | needs-replan
