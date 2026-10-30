@@ -42,5 +42,5 @@ components, styling, responsive interfaces, and visual improvements.
 ## Result
 
 Return the standard Task Result with `role: implementer` and
-`agent: ui-implementer`, plus a short summary of the visual decisions made and
+`agent: ui-implementer` (required; it must match the slice's approved `executor`), plus a short summary of the visual decisions made and
 any responsive or accessibility checks run.

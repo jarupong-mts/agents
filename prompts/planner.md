@@ -36,6 +36,12 @@ Break the work into small, ordered, self-contained slices. For each slice define
 - whether the slice is eligible to overlap each other slice, with recorded
   independence evidence or a serialization reason
 - difficulty level
+- executor: `implementer` for backend/general coding, `ui-implementer` for
+  frontend/UI slices (redesigns, dashboards, layouts, components, styling,
+  responsive interfaces). Choose from the slice's write scope, not its title. Split
+  a slice that needs substantial UI and backend work into two slices with a
+  dependency, one executor each. The executor is part of the approved Plan; the
+  Main Agent does not change it without renewed approval
 - acceptance criteria
 - test action: create, extend, or none
 - direct and regression tests

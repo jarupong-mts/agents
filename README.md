@@ -178,7 +178,8 @@ The **UI Implementer** ([`prompts/ui-implementer.md`](prompts/ui-implementer.md)
 is a sibling of the Implementer inside the existing implementation stage, not a
 new stage. The Main Agent delegates frontend/UI slices (redesigns, dashboards,
 layouts, components, styling, responsive interfaces) to it and backend/general
-slices to the Implementer, never both for one slice. Both use the same task
+slices to the Implementer, as declared by each Plan slice's required `executor`
+field, never both for one slice. Both use the same task
 context, boundaries, approval rules, and Task Result schema. The UI Implementer
 makes visual decisions within the approved scope, so the Planner need not specify
 every visual detail.

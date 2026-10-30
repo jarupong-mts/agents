@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+- Make Implementer routing explicit: the Planner declares a required `executor`
+  (`implementer` | `ui-implementer`) on every Plan slice and splits mixed UI/backend
+  work into dependent slices; the executor is fixed at approval. Task Result `agent`
+  is now required for Builder results and must match the slice's `executor`.
 - Add a fixed `model_policy` in `harness.yaml` assigning models and `high`
   reasoning effort per role for Claude Code and Codex. The Verifier stays
   deterministic; there is no tier-based switching or automatic escalation, and

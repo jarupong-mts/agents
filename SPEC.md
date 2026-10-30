@@ -301,8 +301,13 @@ files; `none` creates no Test Engineer stage. Completed authoring may hand off
 expected red tests; failed, blocked, or incomplete authoring does not release
 the Builder.
 
-The Main Agent delegates frontend/UI slices to the UI Implementer and backend/general
-coding slices to the Implementer, never both for one slice. They are sibling execution
+The Planner declares a required `executor` (`implementer` or `ui-implementer`) on
+every slice, chosen from its write scope, and splits slices needing substantial UI
+and backend work into separate dependent slices. The Main Agent delegates each
+slice only to its approved executor (frontend/UI slices to the UI Implementer,
+backend/general coding slices to the Implementer), never both for one slice, and
+changing the executor requires renewed Plan approval. The Task Result `agent` must
+match the slice's `executor`. They are sibling execution
 agents within this stage with the same contract, scope, approval rules, and Task Result.
 
 No Verifier, Reviewer, Knowledge Curator, or other specialist may overlap active
