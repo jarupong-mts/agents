@@ -518,7 +518,8 @@ applicable. Curation does not grant general project-documentation write permissi
 
 ```yaml
 task_id: slice-1
-role: implementer       # test_engineer | implementer
+role: implementer       # test_engineer | implementer (UI Implementer also uses implementer)
+agent: implementer      # optional: implementer | ui-implementer; defaults to implementer
 approved_scope: "src/auth/state.ts; five-minute expiry and single-use state"
 test_handoff_ref: "slice-1/test_engineer/attempt-1" # logical result reference; null for action none
 status: completed       # completed | failed | blocked | needs-replan

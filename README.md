@@ -56,7 +56,8 @@ After an actual approval request for a presented complete Plan, it explicitly
 approves that Plan; continue without asking again.
 
 The execution workflow uses specialist subagents for Intake, Planning, Test Engineering,
-Implementation, Verification, Review, and Knowledge Curation. Intake
+Implementation (Implementer, or the sibling UI Implementer for frontend/UI
+slices), Verification, Review, and Knowledge Curation. Intake
 must finish before Planner starts, and Planner completes the full Plan before
 approval or implementation. Only Test Engineer and Builder invocations can
 overlap. For `test_subtask.action: create` or `extend`, a same-slice Builder always

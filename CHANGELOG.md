@@ -2,6 +2,15 @@
 
 ## [Unreleased]
 
+- Add a fixed `model_policy` in `harness.yaml` assigning models and `high`
+  reasoning effort per role for Claude Code and Codex. The Verifier stays
+  deterministic; there is no tier-based switching or automatic escalation, and
+  unsupported identifiers are reported rather than substituted.
+- Add the UI Implementer (`prompts/ui-implementer.md`) as a sibling of the
+  Implementer within the existing implementation stage. Frontend/UI slices go to
+  it and general slices to the Implementer, never both for one slice. It uses the
+  same contract and Task Result (`role: implementer`, optional `agent` field).
+
 ## [0.3.2] - 2026-10-20
 
 - Require completed Test Engineering and an attributed handoff before the same

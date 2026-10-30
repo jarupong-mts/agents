@@ -19,10 +19,17 @@ relevant knowledge references, and its approved scope.
 | Investigation, when needed | A role with the `root-cause` skill | Evidence-backed findings |
 | Planning | Planner Agent | Plan |
 | Test creation, when needed | Test Engineer | Test changes derived from acceptance criteria |
-| Implementation | Implementer Agent | Task Result |
+| Implementation | Implementer Agent, or UI Implementer Agent for frontend/UI slices | Task Result |
 | Mechanical checks | Verifier or platform-native check runner | Verification Result |
 | Independent review | Reviewer Agent | Review Result |
 | Durable learning, every full-workflow run | Knowledge Curator | Knowledge Outcome |
+
+The UI Implementer is a sibling of the Implementer within the implementation
+stage, not a new stage. Delegate frontend/UI slices (redesigns, dashboards,
+layouts, components, styling, responsive interfaces, visual improvements) to it
+and backend/general coding slices to the Implementer. Never invoke both for the
+same slice; both use the same approved task context, contract, and Task Result
+schema.
 
 Do not silently collapse these responsibilities into the Main Agent. If the host
 cannot create subagents, state that limitation in the run summary and preserve the
@@ -225,6 +232,7 @@ Plan approval request is explicit approval as described in the intent gate.
 - [`prompts/planner.md`](prompts/planner.md) — Planner Agent
 - [`prompts/test-engineer.md`](prompts/test-engineer.md) — Test Engineer
 - [`prompts/implementer.md`](prompts/implementer.md) — Implementer Agent
+- [`prompts/ui-implementer.md`](prompts/ui-implementer.md) — UI Implementer Agent
 - [`prompts/verifier.md`](prompts/verifier.md) — Verifier Agent
 - [`prompts/reviewer.md`](prompts/reviewer.md) — Reviewer Agent
 - [`prompts/knowledge-curator.md`](prompts/knowledge-curator.md) — Knowledge Curator
@@ -253,7 +261,7 @@ names the skill and its trigger. These are the canonical mappings:
 | Intake | `specification`, `clarification`, `source-driven-development`, `knowledge-base` | `root-cause` for bugs or failures | `schemas/artifacts.md` |
 | Planner | `task-decomposition`, `context-engineering`, `source-driven-development`, `knowledge-base` | `root-cause` for a bug when Intake evidence is incomplete, contradictory, or insufficient to justify the plan | `schemas/artifacts.md` |
 | Test Engineer | `test-driven-development` | — | `schemas/artifacts.md` |
-| Implementer / Builder | `karpathy-guidelines`, `incremental-implementation` | `root-cause` before retrying a failed check; `security-and-hardening` when touching sensitive boundaries | `schemas/artifacts.md` |
+| Implementer / Builder, UI Implementer | `karpathy-guidelines`, `incremental-implementation` | `root-cause` before retrying a failed check; `security-and-hardening` when touching sensitive boundaries | `schemas/artifacts.md` |
 | Verifier | None | — | `schemas/artifacts.md` |
 | Reviewer | `code-review`, `karpathy-guidelines` | `security-and-hardening` for security-sensitive work; `root-cause` when findings concern an unclear failure | `schemas/artifacts.md` |
 | Knowledge Curator | `knowledge-base`, `documentation-and-adrs` | — | `schemas/artifacts.md` |

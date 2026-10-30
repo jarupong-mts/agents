@@ -414,7 +414,8 @@ define a suitable policy, the applying agent must ask before generating
 platform-specific configuration. Do not ask or add model configuration for
 knowledge-only or other scopes that do not create agents. Model names,
 availability, pricing, and reasoning controls change over time, so this repository
-must not hard-code a permanent model name.
+must not hard-code a permanent model name, except the fixed assignments
+in `model_policy`, which are versioned with this repository.
 
 Ask a question like:
 
@@ -442,3 +443,13 @@ usually more economical:
 
 These are routing recommendations, not model identifiers. The adapter should
 record the user's actual choices in its configuration and final run summary.
+
+### Fixed model policy
+
+When `model_policy.mode` in [`harness.yaml`](harness.yaml) is `fixed`, apply its
+Claude Code and Codex assignments to the selected agents (including UI Implementer
+when selected) instead of asking the questions above for those platforms; ask only
+for platforms or roles it does not cover. Keep every LLM agent at the stated `high`
+effort, and give the Verifier no dedicated model. Do not add tier-based switching
+or automatic escalation. Verify each identifier against the installed host; if one
+is unsupported, report the incompatibility and do not substitute another model.

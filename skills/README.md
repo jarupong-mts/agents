@@ -19,16 +19,16 @@ copy of the role prompt.
 | context-engineering | Main Agent, Planner | Required for orchestration and planning; keep context focused and progressive | Adapted from template-harness |
 | specification | Intake | Required for intake; turn intent into checkable criteria | Synthesized from template-harness + requirements practice |
 | clarification | Main Agent, Intake | Required; interview/refine only as needed to resolve material ambiguity | Adapted from template-harness; interview and idea-refinement techniques synthesized |
-| root-cause | Intake, Planner, Implementer, Reviewer | Conditional for bug/failure investigation; Planner uses it when Intake evidence is incomplete, contradictory, or insufficient | Adapted from template-harness investigation workflow |
+| root-cause | Intake, Planner, Implementer, UI Implementer, Reviewer | Conditional for bug/failure investigation; Planner uses it when Intake evidence is incomplete, contradictory, or insufficient | Adapted from template-harness investigation workflow |
 | task-decomposition | Planner | Required; split approved work into safe, verifiable slices | Adapted from template-harness |
 | source-driven-development | Intake, Planner | Required; ground decisions in project and external sources | Adapted from knowledge-base |
-| incremental-implementation | Implementer | Required; implement one approved slice with bounded scope | Adapted from template-harness |
+| incremental-implementation | Implementer, UI Implementer | Required; implement one approved slice with bounded scope | Adapted from template-harness |
 | test-driven-development | Test Engineer | Required when tests are authored or changed; derive behavior from criteria | Synthesized from template-harness + test-design practice |
 | code-review | Reviewer | Required; inspect correctness, scope, regressions, and maintainability | Synthesized from template-harness + code-review practice |
-| security-and-hardening | Reviewer, Implementer | Conditional when work crosses sensitive boundaries | Synthesized from template-harness + secure-development practice |
+| security-and-hardening | Reviewer, Implementer, UI Implementer | Conditional when work crosses sensitive boundaries | Synthesized from template-harness + secure-development practice |
 | documentation-and-adrs | Knowledge Curator | Required for every full-workflow knowledge assessment and included partial knowledge scope | Local adaptation of knowledge-base |
 | knowledge-base | Main Agent, Intake, Planner, Knowledge Curator | Required for full workflow and partial scopes including knowledge; use the configured system | Adapted from knowledge-base |
-| karpathy-guidelines | Implementer, Reviewer | Required; surface assumptions, minimize complexity, keep edits surgical, verify outcomes | Synthesized from Karpathy's published observations and portable skill practice |
+| karpathy-guidelines | Implementer, UI Implementer, Reviewer | Required; surface assumptions, minimize complexity, keep edits surgical, verify outcomes | Synthesized from Karpathy's published observations and portable skill practice |
 | doubt-driven-development | Main Agent only | Conditional for non-trivial, high-stakes, unfamiliar, or hard-to-verify decisions; fresh-context adversarial challenge | Adapted from addyosmani/agent-skills; orchestration details made portable |
 | [human-readable-communication](human-readable-communication/SKILL.md) | Main Agent only | Conditional for long or complex explanations, user-facing Plan presentations, and reports; preserve meaning while making the presentation easier to follow | Local adaptation of danyuchn/asd-ste100-skill v0.4.0; relaxed and language-aware |
 

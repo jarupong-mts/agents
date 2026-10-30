@@ -301,6 +301,10 @@ files; `none` creates no Test Engineer stage. Completed authoring may hand off
 expected red tests; failed, blocked, or incomplete authoring does not release
 the Builder.
 
+The Main Agent delegates frontend/UI slices to the UI Implementer and backend/general
+coding slices to the Implementer, never both for one slice. They are sibling execution
+agents within this stage with the same contract, scope, approval rules, and Task Result.
+
 No Verifier, Reviewer, Knowledge Curator, or other specialist may overlap active
 Test Engineer/Implementer work. The Implementer changes only approved scope,
 follows acceptance criteria, and returns a structured result.
@@ -418,6 +422,10 @@ depth.
 | 1 | normal feature or refactor | standard Planner, task-level Implementer, normal review |
 | 2 | cross-cutting, load-bearing, security, money, data, or low-confidence work | senior Planner, stronger Implementer, independent review |
 
+When `model_policy.mode` in [`harness.yaml`](harness.yaml) is `fixed`, tiers do not
+change models: every role keeps its fixed model and `high` effort, with no automatic
+escalation. Tiers then describe review depth only.
+
 When uncertain, route upward. The cost of a stronger model is usually lower than
 the cost of a wrong plan or missed regression.
 
@@ -444,6 +452,7 @@ Suggested default permissions:
 | Planner | scoped | no | no | no | no |
 | Test Engineer | scoped | no | yes | no | no |
 | Implementer | scoped | yes | no | no | no |
+| UI Implementer | scoped | yes | no | no | no |
 | Verifier | scoped | no | no | no | no |
 | Reviewer | scoped | no | no | no | no |
 | Knowledge Curator | relevant | no | no | yes | no |

@@ -385,7 +385,46 @@ delegation:
   required: true
   fallback: "If the host has no subagent capability, preserve role boundaries and report the limitation."
 
+implementation_routing:
+  # UI Implementer is a sibling execution agent within the implement stage, not a new stage.
+  agents:
+    implementer: "backend and general coding slices"
+    ui_implementer: "frontend/UI slices: redesigns, dashboards, layouts, components, styling, responsive interfaces, visual improvements"
+  one_agent_per_slice: true
+  same_contract_as_implementer: [task_context, task_boundaries, approval_rules, task_result_schema, workflow]
+  task_result_role: implementer
+  separate_ui_designer_or_visual_reviewer: false
+  planner_must_specify_every_visual_detail: false
+
+model_policy:
+  # Fixed assignments. Effort stays "high" for every LLM agent.
+  # No tier-based model switching and no automatic model escalation.
+  mode: fixed
+  dynamic_routing: false
+  automatic_escalation: false
+  unsupported_identifier_route: report_incompatibility_never_substitute
+  verifier: "deterministic scripts and tools; no dedicated LLM"
+  claude_code:
+    main_agent: {model: claude-sonnet-5-5, effort: high}
+    intake: {model: claude-haiku-5-5, effort: high}
+    planner: {model: claude-opus-5-5, effort: high}
+    test_engineer: {model: claude-sonnet-5-5, effort: high}
+    implementer: {model: claude-sonnet-5-5, effort: high}
+    ui_implementer: {model: claude-opus-5-5, effort: high}
+    reviewer: {model: claude-opus-5-5, effort: high}
+    knowledge_curator: {model: claude-haiku-5-5, effort: high}
+  codex:
+    main_agent: {model: gpt-6.1-terra, model_reasoning_effort: high}
+    intake: {model: gpt-6-luna, model_reasoning_effort: high}
+    planner: {model: gpt-6.1-sol, model_reasoning_effort: high}
+    test_engineer: {model: gpt-6.1-sol, model_reasoning_effort: high}
+    implementer: {model: gpt-6.1-sol, model_reasoning_effort: high}
+    ui_implementer: {model: gpt-6.1-sol, model_reasoning_effort: high}
+    reviewer: {model: gpt-6.1-sol, model_reasoning_effort: high}
+    knowledge_curator: {model: gpt-6-luna, model_reasoning_effort: high}
+
 routing:
+  # With model_policy.mode: fixed, tiers do not change models; they only describe review depth.
   tier_0:
     planner: junior
     implementer: junior
@@ -650,6 +689,12 @@ skills:
         root-cause: "before retrying a failed check"
         security-and-hardening: "when touching sensitive boundaries"
       artifact_contract: schemas/artifacts.md
+    ui_implementer:
+      required: [karpathy-guidelines, incremental-implementation]
+      conditional:
+        root-cause: "before retrying a failed check"
+        security-and-hardening: "when touching sensitive boundaries"
+      artifact_contract: schemas/artifacts.md
     verifier:
       required: []
       conditional: {}
@@ -672,6 +717,7 @@ skills:
       - intake
       - planner
       - implementer
+      - ui_implementer
       - reviewer
     planner_trigger: "bug with Intake evidence incomplete, contradictory, or insufficient to justify the plan"
   doubt_driven_development:
@@ -752,6 +798,7 @@ roles:
   planner: prompts/planner.md
   test_engineer: prompts/test-engineer.md
   implementer: prompts/implementer.md
+  ui_implementer: prompts/ui-implementer.md
   verifier: prompts/verifier.md
   reviewer: prompts/reviewer.md
   knowledge_curator: prompts/knowledge-curator.md
