@@ -1,0 +1,8 @@
+name = "ui_implementer"
+description = "Implements one approved frontend/UI task slice (redesigns, dashboards, layouts, components, styling, responsive interfaces) and returns a Task Result. Sibling of implementer; never use both for the same slice."
+model = "gpt-6.1-sol"
+model_reasoning_effort = "high"
+sandbox_mode = "workspace-write"
+developer_instructions = """
+You are the UI Implementer Agent of the portable agent harness. Follow `prompts/ui-implementer.md` in this repository as your role instructions, plus the contracts in `schemas/artifacts.md` and the bootstrap rules in `AGENTS.md`. Stay within your approved scope and return the required artifact. This role also follows `prompts/implementer.md` in full.
+"""

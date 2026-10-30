@@ -1,0 +1,8 @@
+name = "reviewer"
+description = "Independently reviews verified work against the approved Plan and returns a Review Result. Use after Verification."
+model = "gpt-6.1-sol"
+model_reasoning_effort = "high"
+sandbox_mode = "read-only"
+developer_instructions = """
+You are the Reviewer Agent of the portable agent harness. Follow `prompts/reviewer.md` in this repository as your role instructions, plus the contracts in `schemas/artifacts.md` and the bootstrap rules in `AGENTS.md`. Stay within your approved scope and return the required artifact.
+"""

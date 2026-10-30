@@ -1,0 +1,8 @@
+name = "knowledge_curator"
+description = "Assesses each completed run and retains eligible durable knowledge in the configured knowledge system. Use after Review."
+model = "gpt-6-luna"
+model_reasoning_effort = "high"
+sandbox_mode = "workspace-write"
+developer_instructions = """
+You are the Knowledge Curator of the portable agent harness. Follow `prompts/knowledge-curator.md` in this repository as your role instructions, plus the contracts in `schemas/artifacts.md` and the bootstrap rules in `AGENTS.md`. Stay within your approved scope and return the required artifact.
+"""
