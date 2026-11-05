@@ -467,9 +467,14 @@ skills:
     - security-and-hardening
     - documentation-and-adrs
     - knowledge-base
-    - karpathy-guidelines
+    - code-quality
     - doubt-driven-development
     - human-readable-communication
+  # UI skills with no local definition; sources live in materialization_policy.registry_entries.
+  upstream_only_definitions:
+    - impeccable
+    - emil-design-eng
+    - web-design-guidelines
   materialization_policy:
     distinguish_historical_provenance_from_application_source: true
     choose_exactly_one_materialization_source_per_skill: true
@@ -636,10 +641,28 @@ skills:
         materialization_default: local_definition
         local_definition: skills/knowledge-base/SKILL.md
         upstream_candidates: []
-      karpathy-guidelines:
+      code-quality:
         materialization_default: local_definition
-        local_definition: skills/karpathy-guidelines/SKILL.md
+        local_definition: skills/code-quality/SKILL.md
+        source_classification: local_adaptation
         upstream_candidates: []
+        upstream_influences:
+          - repository: https://github.com/DietrichGebert/ponytail
+            path: skills/ponytail/SKILL.md
+            resolved_commit_sha: 96608e078b2d5ea607c5c3b8b5a54d1c1fba6846
+            accessed_date: "2026-11-05"
+            compatibility_decision: "Retain suitable reuse and complete, minimal changes; omit persistent modes, first-match selection, dependency bans, mandatory one-liners, and workflow overrides."
+          - repository: https://github.com/cursor/plugins
+            path: pstack/skills/principle-minimize-reader-load/SKILL.md
+            resolved_commit_sha: bb68f2365eceafa0cb2d253112f675acf5f144cc
+            accessed_date: "2026-11-05"
+            compatibility_decision: "Retain traceable flow, bounded mutable state, and abstractions that hide meaningful complexity; omit automatic one-caller inlining and reader timing caps."
+        supporting_assets:
+          required: [skills/code-quality/LICENSE]
+          included: [skills/code-quality/LICENSE]
+          omitted:
+            - path: pstack/skills/principle-guard-the-context-window/SKILL.md
+              reason: "The adapted method is self-contained; the upstream context-window link is not retained."
       human-readable-communication:
         materialization_default: local_definition
         local_definition: skills/human-readable-communication/SKILL.md
@@ -662,6 +685,53 @@ skills:
               reason: "Some examples change obligation or add content, conflicting with meaning preservation."
             - path: scripts/ste-lint.py
               reason: "Hard English word caps and punctuation checks are incompatible; no replacement linter."
+      impeccable:
+        materialization_default: upstream_direct_if_compatible
+        local_definition: null
+        source_classification: upstream_only
+        unavailable_route: omit_with_reason
+        upstream_candidates:
+          - kind: direct_upstream_only
+            repository: https://github.com/pbakaus/impeccable
+            ref: main
+            host_paths:
+              claude_code: .claude/skills/impeccable/SKILL.md
+              codex: .agents/skills/impeccable/SKILL.md
+            mutable_ref: true
+            supporting_assets: {required: [reference/, scripts/]}
+            compatibility_note: "Main UI build method. Harness scope wins: write PRODUCT.md or DESIGN.md only when the approved write scope names them; never use live, generate, or the no-argument routing menu; use redesign-scale commands (bolder, overdrive, replacing the visual world) only when the approved Plan calls for them. If the launcher cannot run, follow the skill's documented fallback."
+      emil-design-eng:
+        materialization_default: upstream_direct_if_compatible
+        local_definition: null
+        source_classification: upstream_only
+        unavailable_route: omit_with_reason
+        upstream_candidates:
+          - kind: direct_upstream_only
+            repository: https://github.com/emilkowalski/skills
+            ref: main
+            path: skills/emil-design-eng/SKILL.md
+            mutable_ref: true
+            supporting_assets: {required: []}
+            compatibility_note: "Motion, interaction, and polish method. Wins over impeccable's animate guidance when they conflict. Other skills in the repository are not materialized."
+      web-design-guidelines:
+        materialization_default: upstream_direct_if_compatible
+        local_definition: null
+        source_classification: upstream_only
+        unavailable_route: omit_with_reason
+        upstream_candidates:
+          - kind: direct_upstream_only
+            repository: https://github.com/vercel-labs/agent-skills
+            ref: main
+            path: skills/web-design-guidelines/SKILL.md
+            mutable_ref: true
+            supporting_assets: {required: []}
+            runtime_fetch: https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md
+            required_host_capability:
+              role: reviewer
+              capability: read_only_fetch_of_runtime_fetch_url
+              grant: narrowest_host_mechanism_without_write_access
+              unsupported_route: report_check_not_run
+            compatibility_note: "Review-only method. Rules are fetched from a mutable ref at review time and are not pinned by the application SHA. If the host cannot fetch them, report the check as not run; never substitute remembered rules."
   role_map_policy:
     knowledge_base_required_for: full_workflow_or_partial_scope_including_knowledge_management
     selected_roles_without_knowledge_may_omit_knowledge_base_with_reason: outside_adoption_scope
@@ -682,19 +752,21 @@ skills:
       required: [task-decomposition, context-engineering, source-driven-development, knowledge-base]
       conditional:
         root-cause: "bug with Intake evidence incomplete, contradictory, or insufficient to justify the plan"
+        code-quality: "when choosing new or changed dependencies, shared abstractions, or state boundaries"
       artifact_contract: schemas/artifacts.md
     test_engineer:
       required: [test-driven-development]
-      conditional: {}
+      conditional:
+        code-quality: "when adding or changing helpers, fixtures, or nontrivial setup or assertions"
       artifact_contract: schemas/artifacts.md
     implementer:
-      required: [karpathy-guidelines, incremental-implementation]
+      required: [code-quality, incremental-implementation]
       conditional:
         root-cause: "before retrying a failed check"
         security-and-hardening: "when touching sensitive boundaries"
       artifact_contract: schemas/artifacts.md
     ui_implementer:
-      required: [karpathy-guidelines, incremental-implementation]
+      required: [code-quality, incremental-implementation, impeccable, emil-design-eng]
       conditional:
         root-cause: "before retrying a failed check"
         security-and-hardening: "when touching sensitive boundaries"
@@ -704,10 +776,11 @@ skills:
       conditional: {}
       artifact_contract: schemas/artifacts.md
     reviewer:
-      required: [code-review, karpathy-guidelines]
+      required: [code-review, code-quality]
       conditional:
         security-and-hardening: "security-sensitive work"
         root-cause: "findings concern an unclear failure"
+        web-design-guidelines: "the reviewed slice's executor is ui-implementer"
       artifact_contract: schemas/artifacts.md
     knowledge_curator:
       required: [knowledge-base, documentation-and-adrs]

@@ -1,7 +1,7 @@
 # Skill Model
 
 This repository is a portable synthesis, not a bundle of skills copied from one
-agent runtime. It is also a source library: every listed reusable skill has an
+agent runtime. It is also a source library: every core skill has an
 actual `skills/<name>/SKILL.md` definition that an adapter can translate into a
 native project skill. The source and provenance of every skill in this catalog is
 recorded in [`origins.md`](origins.md). Read that registry before reusing or
@@ -28,7 +28,7 @@ copy of the role prompt.
 | security-and-hardening | Reviewer, Implementer, UI Implementer | Conditional when work crosses sensitive boundaries | Synthesized from template-harness + secure-development practice |
 | documentation-and-adrs | Knowledge Curator | Required for every full-workflow knowledge assessment and included partial knowledge scope | Local adaptation of knowledge-base |
 | knowledge-base | Main Agent, Intake, Planner, Knowledge Curator | Required for full workflow and partial scopes including knowledge; use the configured system | Adapted from knowledge-base |
-| karpathy-guidelines | Implementer, UI Implementer, Reviewer | Required; surface assumptions, minimize complexity, keep edits surgical, verify outcomes | Synthesized from Karpathy's published observations and portable skill practice |
+| [code-quality](code-quality/SKILL.md) | Implementer, UI Implementer, Reviewer; conditional Planner, Test Engineer | Required for Implementer, UI Implementer, and Reviewer; Planner when choosing new or changed dependencies, shared abstractions, or state boundaries; Test Engineer when adding or changing helpers, fixtures, or nontrivial setup or assertions | Local adaptation of Ponytail and Minimize Reader Load, retaining the historical Karpathy principles |
 | doubt-driven-development | Main Agent only | Conditional for non-trivial, high-stakes, unfamiliar, or hard-to-verify decisions; fresh-context adversarial challenge | Adapted from addyosmani/agent-skills; orchestration details made portable |
 | [human-readable-communication](human-readable-communication/SKILL.md) | Main Agent only | Conditional for long or complex explanations, user-facing Plan presentations, and reports; preserve meaning while making the presentation easier to follow | Local adaptation of danyuchn/asd-ste100-skill v0.4.0; relaxed and language-aware |
 
@@ -43,10 +43,34 @@ contracts. Its local definition is the materialization default, not a fifth
 direct upstream candidate. See [`origins.md`](origins.md) for the pinned influence,
 retained license, and intentionally omitted upstream assets.
 
+`code-quality` uses one local definition classified as `local_adaptation`, with
+the historical Karpathy principles retained. It guides complete, scoped changes,
+suitable reuse, and readable code and tests. The conditional Planner and Test
+Engineer triggers above supplement their existing methods. See
+[`origins.md`](origins.md#code-quality-adaptation) for immutable influences,
+adaptation decisions, and the required combined MIT license asset; no upstream
+workflow or runtime is imported.
+
 Artifact schemas are contracts, not required per-role skills. Read
 [`../schemas/artifacts.md`](../schemas/artifacts.md) directly. The existing
 `harness-artifacts` definition is retained only as an optional adapter
 translation reference; it is not assigned to every artifact-producing role.
+
+## UI skills (upstream only)
+
+These skills have no local definition in `skills/`. Each is materialized directly
+from its upstream source, recorded in [`../harness.yaml`](../harness.yaml) and
+[`origins.md`](origins.md). If a source is unavailable or incompatible, omit it
+with a recorded reason; there is no local fallback.
+
+| Skill | Role mapping | Trigger / purpose | Origin |
+|---|---|---|---|
+| impeccable | UI Implementer | Required; main method for building and refining the interface | Upstream [pbakaus/impeccable](https://github.com/pbakaus/impeccable) |
+| emil-design-eng | UI Implementer | Required; motion, interaction, and polish; wins over `impeccable` animate guidance on conflict | Upstream [emilkowalski/skills](https://github.com/emilkowalski/skills/tree/main/skills/emil-design-eng) |
+| web-design-guidelines | Reviewer | Conditional when the slice's executor is `ui-implementer`; `file:line` UI guideline review | Upstream [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills/tree/main/skills/web-design-guidelines) |
+
+The harness rules for these skills, such as write scope and banned interactive
+commands, live in the role prompts.
 
 Domain skills can be added without changing the lifecycle:
 

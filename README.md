@@ -187,7 +187,10 @@ every visual detail.
 This repository also carries a native projection of these roles:
 `.claude/agents/` and `.claude/settings.json` for Claude Code, and `.codex/agents/`
 and `.codex/config.toml` for Codex. Each agent file points to its role prompt
-instead of copying it.
+instead of copying it. For the Reviewer's guidelines fetch (see
+[`SPEC.md`](SPEC.md)), the Claude Code projection grants `WebFetch`. The Codex
+Reviewer keeps its `read-only` sandbox without network access, so it reports that
+check as not run.
 
 ## Files
 

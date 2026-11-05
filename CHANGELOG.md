@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+- Add upstream-only UI skills. The UI Implementer loads `impeccable` and
+  `emil-design-eng` for every slice; the Reviewer loads `web-design-guidelines`
+  when the slice's executor is `ui-implementer`. The UI Implementer prompt limits
+  `PRODUCT.md`/`DESIGN.md` writes to the approved scope and bans interactive
+  `impeccable` commands. The portable permissions let the Reviewer read only the
+  guidelines URL; hosts that cannot grant this without broader access report the
+  check as not run. The Claude Code projection grants `WebFetch`; the Codex
+  projection stays `read-only`.
 - Make Implementer routing explicit: the Planner declares a required `executor`
   (`implementer` | `ui-implementer`) on every Plan slice and splits mixed UI/backend
   work into dependent slices; the executor is fixed at approval. Task Result `agent`
