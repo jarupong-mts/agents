@@ -467,7 +467,7 @@ skills:
     - security-and-hardening
     - documentation-and-adrs
     - knowledge-base
-    - karpathy-guidelines
+    - code-quality
     - doubt-driven-development
     - human-readable-communication
   materialization_policy:
@@ -636,10 +636,28 @@ skills:
         materialization_default: local_definition
         local_definition: skills/knowledge-base/SKILL.md
         upstream_candidates: []
-      karpathy-guidelines:
+      code-quality:
         materialization_default: local_definition
-        local_definition: skills/karpathy-guidelines/SKILL.md
+        local_definition: skills/code-quality/SKILL.md
+        source_classification: local_adaptation
         upstream_candidates: []
+        upstream_influences:
+          - repository: https://github.com/DietrichGebert/ponytail
+            path: skills/ponytail/SKILL.md
+            resolved_commit_sha: 96608e078b2d5ea607c5c3b8b5a54d1c1fba6846
+            accessed_date: "2026-11-05"
+            compatibility_decision: "Retain suitable reuse and complete, minimal changes; omit persistent modes, first-match selection, dependency bans, mandatory one-liners, and workflow overrides."
+          - repository: https://github.com/cursor/plugins
+            path: pstack/skills/principle-minimize-reader-load/SKILL.md
+            resolved_commit_sha: bb68f2365eceafa0cb2d253112f675acf5f144cc
+            accessed_date: "2026-11-05"
+            compatibility_decision: "Retain traceable flow, bounded mutable state, and abstractions that hide meaningful complexity; omit automatic one-caller inlining and reader timing caps."
+        supporting_assets:
+          required: [skills/code-quality/LICENSE]
+          included: [skills/code-quality/LICENSE]
+          omitted:
+            - path: pstack/skills/principle-guard-the-context-window/SKILL.md
+              reason: "The adapted method is self-contained; the upstream context-window link is not retained."
       human-readable-communication:
         materialization_default: local_definition
         local_definition: skills/human-readable-communication/SKILL.md
@@ -682,19 +700,21 @@ skills:
       required: [task-decomposition, context-engineering, source-driven-development, knowledge-base]
       conditional:
         root-cause: "bug with Intake evidence incomplete, contradictory, or insufficient to justify the plan"
+        code-quality: "when choosing new or changed dependencies, shared abstractions, or state boundaries"
       artifact_contract: schemas/artifacts.md
     test_engineer:
       required: [test-driven-development]
-      conditional: {}
+      conditional:
+        code-quality: "when adding or changing helpers, fixtures, or nontrivial setup or assertions"
       artifact_contract: schemas/artifacts.md
     implementer:
-      required: [karpathy-guidelines, incremental-implementation]
+      required: [code-quality, incremental-implementation]
       conditional:
         root-cause: "before retrying a failed check"
         security-and-hardening: "when touching sensitive boundaries"
       artifact_contract: schemas/artifacts.md
     ui_implementer:
-      required: [karpathy-guidelines, incremental-implementation]
+      required: [code-quality, incremental-implementation]
       conditional:
         root-cause: "before retrying a failed check"
         security-and-hardening: "when touching sensitive boundaries"
@@ -704,7 +724,7 @@ skills:
       conditional: {}
       artifact_contract: schemas/artifacts.md
     reviewer:
-      required: [code-review, karpathy-guidelines]
+      required: [code-review, code-quality]
       conditional:
         security-and-hardening: "security-sensitive work"
         root-cause: "findings concern an unclear failure"

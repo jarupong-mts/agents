@@ -28,7 +28,7 @@ copy of the role prompt.
 | security-and-hardening | Reviewer, Implementer, UI Implementer | Conditional when work crosses sensitive boundaries | Synthesized from template-harness + secure-development practice |
 | documentation-and-adrs | Knowledge Curator | Required for every full-workflow knowledge assessment and included partial knowledge scope | Local adaptation of knowledge-base |
 | knowledge-base | Main Agent, Intake, Planner, Knowledge Curator | Required for full workflow and partial scopes including knowledge; use the configured system | Adapted from knowledge-base |
-| karpathy-guidelines | Implementer, UI Implementer, Reviewer | Required; surface assumptions, minimize complexity, keep edits surgical, verify outcomes | Synthesized from Karpathy's published observations and portable skill practice |
+| [code-quality](code-quality/SKILL.md) | Implementer, UI Implementer, Reviewer; conditional Planner, Test Engineer | Required for Implementer, UI Implementer, and Reviewer; Planner when choosing new or changed dependencies, shared abstractions, or state boundaries; Test Engineer when adding or changing helpers, fixtures, or nontrivial setup or assertions | Local adaptation of Ponytail and Minimize Reader Load, retaining the historical Karpathy principles |
 | doubt-driven-development | Main Agent only | Conditional for non-trivial, high-stakes, unfamiliar, or hard-to-verify decisions; fresh-context adversarial challenge | Adapted from addyosmani/agent-skills; orchestration details made portable |
 | [human-readable-communication](human-readable-communication/SKILL.md) | Main Agent only | Conditional for long or complex explanations, user-facing Plan presentations, and reports; preserve meaning while making the presentation easier to follow | Local adaptation of danyuchn/asd-ste100-skill v0.4.0; relaxed and language-aware |
 
@@ -42,6 +42,14 @@ Short messages use the bootstrap policy; specialist English artifacts keep their
 contracts. Its local definition is the materialization default, not a fifth
 direct upstream candidate. See [`origins.md`](origins.md) for the pinned influence,
 retained license, and intentionally omitted upstream assets.
+
+`code-quality` uses one local definition classified as `local_adaptation`, with
+the historical Karpathy principles retained. It guides complete, scoped changes,
+suitable reuse, and readable code and tests. The conditional Planner and Test
+Engineer triggers above supplement their existing methods. See
+[`origins.md`](origins.md#code-quality-adaptation) for immutable influences,
+adaptation decisions, and the required combined MIT license asset; no upstream
+workflow or runtime is imported.
 
 Artifact schemas are contracts, not required per-role skills. Read
 [`../schemas/artifacts.md`](../schemas/artifacts.md) directly. The existing

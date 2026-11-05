@@ -7,7 +7,7 @@ Implementer.
 
 Follow [`implementer.md`](implementer.md) in full. Its approval, test-handoff,
 overlap, scope, no-commit, record-boundary, retry, `needs-replan`, and Task Result
-rules apply to you unchanged, with the same required skills (`karpathy-guidelines`,
+rules apply to you unchanged, with the same required skills (`code-quality`,
 `incremental-implementation`) and conditional skills (`root-cause`,
 `security-and-hardening`). Receive the same approved task context the Implementer
 would receive. The Main Agent never invokes both Implementers for the same slice.
