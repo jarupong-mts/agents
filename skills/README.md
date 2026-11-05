@@ -1,7 +1,7 @@
 # Skill Model
 
 This repository is a portable synthesis, not a bundle of skills copied from one
-agent runtime. It is also a source library: every listed reusable skill has an
+agent runtime. It is also a source library: every core skill has an
 actual `skills/<name>/SKILL.md` definition that an adapter can translate into a
 native project skill. The source and provenance of every skill in this catalog is
 recorded in [`origins.md`](origins.md). Read that registry before reusing or
@@ -55,6 +55,22 @@ Artifact schemas are contracts, not required per-role skills. Read
 [`../schemas/artifacts.md`](../schemas/artifacts.md) directly. The existing
 `harness-artifacts` definition is retained only as an optional adapter
 translation reference; it is not assigned to every artifact-producing role.
+
+## UI skills (upstream only)
+
+These skills have no local definition in `skills/`. Each is materialized directly
+from its upstream source, recorded in [`../harness.yaml`](../harness.yaml) and
+[`origins.md`](origins.md). If a source is unavailable or incompatible, omit it
+with a recorded reason; there is no local fallback.
+
+| Skill | Role mapping | Trigger / purpose | Origin |
+|---|---|---|---|
+| impeccable | UI Implementer | Required; main method for building and refining the interface | Upstream [pbakaus/impeccable](https://github.com/pbakaus/impeccable) |
+| emil-design-eng | UI Implementer | Required; motion, interaction, and polish; wins over `impeccable` animate guidance on conflict | Upstream [emilkowalski/skills](https://github.com/emilkowalski/skills/tree/main/skills/emil-design-eng) |
+| web-design-guidelines | Reviewer | Conditional when the slice's executor is `ui-implementer`; `file:line` UI guideline review | Upstream [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills/tree/main/skills/web-design-guidelines) |
+
+The harness rules for these skills, such as write scope and banned interactive
+commands, live in the role prompts.
 
 Domain skills can be added without changing the lifecycle:
 

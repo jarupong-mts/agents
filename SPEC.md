@@ -462,6 +462,11 @@ Suggested default permissions:
 | Reviewer | scoped | no | no | no | no |
 | Knowledge Curator | relevant | no | no | yes | no |
 
+When `web-design-guidelines` applies, the Reviewer may also read that skill's
+rules URL (`runtime_fetch` in `harness.yaml`). This grants no other network
+access. If a host cannot grant it without broader permissions, such as write
+access, do not grant it; the Reviewer reports the check as not run.
+
 The exact enforcement mechanism belongs to the adapter.
 
 ## 6. Completion criteria

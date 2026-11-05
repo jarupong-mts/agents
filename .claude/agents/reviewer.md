@@ -1,7 +1,7 @@
 ---
 name: reviewer
 description: Independently reviews verified work against the approved Plan and returns a Review Result. Use after Verification.
-tools: Read, Grep, Glob, Bash
+tools: Read, Grep, Glob, Bash, WebFetch
 model: claude-opus-5-5
 effort: high
 ---

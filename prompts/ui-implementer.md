@@ -12,6 +12,23 @@ rules apply to you unchanged, with the same required skills (`code-quality`,
 `security-and-hardening`). Receive the same approved task context the Implementer
 would receive. The Main Agent never invokes both Implementers for the same slice.
 
+## UI skills
+
+Also load `impeccable` and `emil-design-eng` for every slice.
+
+- `impeccable` is the main method for building and refining the interface.
+- `emil-design-eng` governs motion, interaction, and polish. When it conflicts
+  with `impeccable`'s animate guidance, follow `emil-design-eng`.
+
+Harness rules take precedence over both skills:
+
+- Create or edit `PRODUCT.md` or `DESIGN.md` only when the approved write scope
+  names them.
+- Do not use `impeccable`'s `live` or `generate` commands, or its no-argument
+  routing menu; they need an interactive user.
+- Use redesign-scale commands (`bolder`, `overdrive`, or replacing the visual
+  world) only when the approved Plan calls for a redesign.
+
 ## Scope of work
 
 Implement approved frontend/UI slices: UI redesigns, dashboards, layouts,
