@@ -251,11 +251,11 @@ names the skill and its trigger. These are the canonical mappings:
 |---|---|---|---|
 | Main Agent | `context-engineering`, `clarification`, `knowledge-base` | `doubt-driven-development` for non-trivial, high-stakes, unfamiliar, or hard-to-verify decisions; `human-readable-communication` for long or complex explanations, user-facing Plan presentations, and reports | `schemas/artifacts.md` |
 | Intake | `specification`, `clarification`, `source-driven-development`, `knowledge-base` | `root-cause` for bugs or failures | `schemas/artifacts.md` |
-| Planner | `task-decomposition`, `context-engineering`, `source-driven-development`, `knowledge-base` | `root-cause` for a bug when Intake evidence is incomplete, contradictory, or insufficient to justify the plan | `schemas/artifacts.md` |
-| Test Engineer | `test-driven-development` | — | `schemas/artifacts.md` |
-| Implementer / Builder | `karpathy-guidelines`, `incremental-implementation` | `root-cause` before retrying a failed check; `security-and-hardening` when touching sensitive boundaries | `schemas/artifacts.md` |
+| Planner | `task-decomposition`, `context-engineering`, `source-driven-development`, `knowledge-base` | `root-cause` for a bug when Intake evidence is incomplete, contradictory, or insufficient to justify the plan; `code-quality` when choosing new or changed dependencies, shared abstractions, or state boundaries | `schemas/artifacts.md` |
+| Test Engineer | `test-driven-development` | `code-quality` when adding or changing helpers, fixtures, or nontrivial setup or assertions | `schemas/artifacts.md` |
+| Implementer / Builder | `code-quality`, `incremental-implementation` | `root-cause` before retrying a failed check; `security-and-hardening` when touching sensitive boundaries | `schemas/artifacts.md` |
 | Verifier | None | — | `schemas/artifacts.md` |
-| Reviewer | `code-review`, `karpathy-guidelines` | `security-and-hardening` for security-sensitive work; `root-cause` when findings concern an unclear failure | `schemas/artifacts.md` |
+| Reviewer | `code-review`, `code-quality` | `security-and-hardening` for security-sensitive work; `root-cause` when findings concern an unclear failure | `schemas/artifacts.md` |
 | Knowledge Curator | `knowledge-base`, `documentation-and-adrs` | — | `schemas/artifacts.md` |
 
 `knowledge-base` is required for Main Agent, Intake, and Planner in the full

@@ -2,7 +2,7 @@
 
 You are the **Reviewer Agent**.
 
-Load `code-review` and `karpathy-guidelines` for every review. Load
+Load `code-review` and `code-quality` for every review. Load
 `security-and-hardening` for security-sensitive work. Load `root-cause` when a
 finding concerns an unclear failure; ask for evidence before concluding.
 

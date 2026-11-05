@@ -64,7 +64,7 @@ it does not establish authorship, origin, equivalence, or compatibility.
 | `documentation-and-adrs` | Local adaptation | [knowledge-base](https://github.com/jarupongbestt/knowledge-base) | Record durable decisions, constraints, procedures, and recurring failures |
 | `harness-artifacts` | Synthesized | [agent-harness](https://github.com/jarupongbestt/agent-harness) | Preserve structured artifact contracts and evidence fields across roles |
 | `knowledge-base` | Adapted | [knowledge-base](https://github.com/jarupongbestt/knowledge-base) | Navigate, update, and lint the durable knowledge tree |
-| `karpathy-guidelines` | Synthesized | [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876); [portable skill reference](https://github.com/multica-ai/andrej-karpathy-skills/tree/main/skills/karpathy-guidelines) | Think before acting, choose the simplest sufficient solution, keep edits surgical, and verify observable outcomes; rewritten as a concise portable skill |
+| `code-quality` | Local adaptation | [Ponytail](https://github.com/DietrichGebert/ponytail/blob/96608e078b2d5ea607c5c3b8b5a54d1c1fba6846/skills/ponytail/SKILL.md); [Minimize Reader Load](https://github.com/cursor/plugins/blob/bb68f2365eceafa0cb2d253112f675acf5f144cc/pstack/skills/principle-minimize-reader-load/SKILL.md); historical [Andrej Karpathy observations](https://x.com/karpathy/status/2015883857489522876) and [portable skill reference](https://github.com/multica-ai/andrej-karpathy-skills/tree/main/skills/karpathy-guidelines) | Retains the four Karpathy principles and adds suitable reuse, traceable state and flow, useful abstraction boundaries, domain names, rationale comments, and readable tests within approved scope |
 | `doubt-driven-development` | Adapted | [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills/tree/main/skills/doubt-driven-development) | Main-Agent orchestration that sends a minimal packet for fresh-context adversarial review, reconciles evidence, and bounds follow-up; no mandatory external CLI/model |
 | `human-readable-communication` | Local adaptation | [danyuchn/asd-ste100-skill v0.4.0](https://github.com/danyuchn/asd-ste100-skill/blob/7d4a135a199a5d7447c4886bcd7ffe742a627bc9/SKILL.md) | Familiar words, clear actors, focused topics, stable terms, and conditions beside actions; rewritten as a relaxed, language-aware Main Agent presentation method that preserves meaning and harness contracts |
 | `frontend-ui` | Domain extension | Project-specific | Optional domain capability; no portable source is prescribed |
@@ -73,6 +73,55 @@ it does not establish authorship, origin, equivalence, or compatibility.
 | `data-pipelines` | Domain extension | Project-specific | Optional domain capability; no portable source is prescribed |
 | `cloud-infrastructure` | Domain extension | Project-specific | Optional domain capability; no portable source is prescribed |
 | `observability` | Domain extension | Project-specific | Optional domain capability; no portable source is prescribed |
+
+## Code quality adaptation
+
+`code-quality` replaces the local `karpathy-guidelines` name with one
+[self-contained definition](code-quality/SKILL.md). It is a `local_adaptation`,
+not an `upstream_direct` materialization or a second definition under an alias.
+The historical attribution above remains: think before acting, choose the
+simplest sufficient solution, keep edits surgical, and verify observable
+outcomes. Proportionality and required behavior, tests, and safety controls
+remain explicit.
+
+Pinned influences, both accessed 2026-11-05:
+
+- [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail/blob/96608e078b2d5ea607c5c3b8b5a54d1c1fba6846/skills/ponytail/SKILL.md),
+  `skills/ponytail/SKILL.md`, commit
+  `96608e078b2d5ea607c5c3b8b5a54d1c1fba6846`. Retain suitable project reuse,
+  consideration of standard-library/platform features and installed dependencies,
+  and complete changes that preserve required safeguards. Selection weighs
+  behavior, compatibility, security, and maintenance cost. Omit first-match
+  selection, bans on new dependencies, mandatory one-liners, persistent session
+  modes, and upstream workflow instructions that would override harness roles
+  or approved scope.
+- [cursor/plugins pstack](https://github.com/cursor/plugins/blob/bb68f2365eceafa0cb2d253112f675acf5f144cc/pstack/skills/principle-minimize-reader-load/SKILL.md),
+  `pstack/skills/principle-minimize-reader-load/SKILL.md`, commit
+  `bb68f2365eceafa0cb2d253112f675acf5f144cc`. Retain traceable data flow,
+  bounded mutable state, and abstractions that hide meaningful complexity or
+  meet demonstrated requirements. Omit automatic inlining or removal based on
+  caller count and the reader timing cap. Names, comments, and readable test
+  structure are expressed as compact local guidance rather than mechanical
+  size or timing rules.
+
+The method applies only within approved scope. It does not replace TDD's
+behavior and coverage method, root-cause investigation, independent review,
+security work, or required checks. No upstream workflow, runtime, or executable
+scaffolding is imported. Its registry default is the single local definition;
+applications still resolve that local source's full commit SHA, access date,
+compatibility, and assets before approval. The pinned influences are provenance,
+not additional materialization sources or a fifth direct candidate.
+
+Supporting-asset decisions:
+
+- [Ponytail `LICENSE`](https://github.com/DietrichGebert/ponytail/blob/96608e078b2d5ea607c5c3b8b5a54d1c1fba6846/LICENSE)
+  and [pstack `LICENSE`](https://github.com/cursor/plugins/blob/bb68f2365eceafa0cb2d253112f675acf5f144cc/pstack/LICENSE):
+  required and included together in [code-quality/LICENSE](code-quality/LICENSE).
+  Both full, unmodified MIT notices are retained, including
+  `Copyright (c) 2026 DietrichGebert` and `Copyright (c) 2026 Lauren Tan`.
+- `pstack/skills/principle-guard-the-context-window/SKILL.md`: omitted; the
+  adapted method is self-contained and the upstream context-window link is
+  not retained.
 
 ## Human-readable communication adaptation
 
